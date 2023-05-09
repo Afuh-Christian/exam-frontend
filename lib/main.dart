@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'Pages/HomePage.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,25 +11,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Exam',
+      debugShowCheckedModeBanner: false,
       home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Material App Bar'),
-      ),
-      body: const Center(
-        child: Text('Hello World'),
-      ),
     );
   }
 }
