@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'Pages/HomePage.dart';
+
+import 'Screen_Sizes/Layout_Builder.dart';
+import 'Screen_Sizes/Desktop/Desktop_main.dart';
+import 'Screen_Sizes/MobileApp/MobileA_main.dart';
+import 'Screen_Sizes/Tablet/Tablet_main.dart';
+
+
+
 
 void main() => runApp(const MyApp());
 
@@ -12,7 +18,11 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Exam',
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home:  Layout_Builder(
+        Moblie_App: MobileA_App(),
+        Tablet_App: Tablet_App(),
+        Desktop_App: Desktop_App(),
+        )
     );
   }
 }

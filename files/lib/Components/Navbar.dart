@@ -1,48 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
-class NavItem {
-  String? titlename;
-  Widget? icon;
-  String? link;
-  NavItem(
-    this.icon,
-    this.link,
-    this.titlename,
-  );
-}
+void main() => runApp(const MyApp());
 
-List navitems = [
-  {
-    "titlename" : "home" ,
-    "icon": const Icon(Icons.home),
-
-  },
-  {
-    "titlename" : "About" ,
-    "icon": const Icon(Icons.question_answer),
-
-  },
-  {
-    "titlename" : "Admin dashboard" ,
-    "icon": const Icon(Icons.admin_panel_settings),
-
-  },
-  {
-    "titlename" : "Account Setting" ,
-    "icon": const Icon(Icons.settings),
-
-  },
-  {
-    "titlename" : "Light mode" ,
-    "icon": const Icon(Icons.sunny),
-
-  },
-];
-
-
-class HomePage extends StatelessWidget {
-  const HomePage({
+class NavBarMobile extends StatelessWidget {
+  const NavBarMobile({
     super.key,
   });
 
@@ -125,6 +86,24 @@ class HomePage extends StatelessWidget {
             )
           ]),
         ),
-        body: const Center(child: Text("Hello")));
+        body: Center(child: Text("Hellow"),)
+        //  Container(
+        //     width: double.infinity,
+        //     height:  double.infinity,
+        //     // color: Colors.yellow,
+        //     child: Column(
+        //       children: [
+        //         Container(
+        //           // color: Colors.red,
+        //           // child: Text("Hello"),
+        //           height: 300, 
+        //           width: 250,
+        //           child: StackOfDropdowns(),
+        //         ),
+        //       ],
+        //     )
+        //     )
+            
+            );
   }
 }
