@@ -1,3 +1,25 @@
+# At the root of the project .... 
+
+# /Documentation 
+
+# /Design file 
+- You can import this figma file into your  figma account and even make changes on the design ... 
+- Just open your figma homePage and click import local files and choose file from local dir 
+
+
+
+
+
+
+
+
+
+
+# Project front end  code ------------------------------------------------------------------------------------------------------
+- How the files where being organised ......
+
+
+
 # 1 ------- main.dart 
 - The main container running the app 
 - All other wigets are being passed as a child to it
@@ -29,6 +51,11 @@
 # iii ---- Constants 
 - Also contians small sections of reusable widgets 
 - Can't recieve paramters ... 
+
+
+
+
+
 
 
 
