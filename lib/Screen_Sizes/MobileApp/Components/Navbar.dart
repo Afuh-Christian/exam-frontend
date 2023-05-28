@@ -39,9 +39,10 @@ class NavBarMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-    title: const AppTitleWiget(
+           title: const AppTitleWiget(
         width: 120, bookwidth: 22, bookheight: 22, titlefont: 21),
-    // title: Title(120 , 22 , 22 , 21),
+ 
+   
     backgroundColor: Colors.white,
     centerTitle: true,
     iconTheme: const IconThemeData(color: Colors.black),
@@ -55,7 +56,9 @@ class NavBarMobile extends StatelessWidget {
         right: 20,
         raduis: 3000.0,
       )
-    ]),
+    ] 
+    
+    ),
         drawer: const NavDrawer(
           top: 10,
           bottom: 10,

@@ -2,8 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:provider/provider.dart';
+import '../../../Provider/Provider.dart';
 import 'AboutPage.dart';
+import 'Sroll.dart';
+
+import 'package:dropdown_search/dropdown_search.dart';
+
 
 class NavItem {
   String? titlename;
@@ -39,6 +44,8 @@ List navitems = [
   },
 ];
 
+var list = ["one", "two", "three", "four"];
+
 class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
@@ -51,136 +58,90 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        // color: Colors.yellow,
-        child: Column(
-          children: [
-            const SizedBox(
-              // color: Colors.red,
-              // child: Text("Hello"),
-              height: 300,
-              width: 250,
-              child: StackOfDropdowns(),
-            ),
-            GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const AboutPage();
-                  }));
-                },
-                child: const Text("Go to")),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const AboutPage()));
-                },
-                child: const Text("Go to about"))
-          ],
-        ));
+    // Provider .... for global state ....
+    final provider = Provider.of<ExamProvider>(context);
+
+    // return MainContainer(provider: provider);
+
+    return MainContainer(
+      provider: provider,
+    );
   }
 }
 
-class StackOfDropdowns extends StatelessWidget {
-  const StackOfDropdowns({
+class MainContainer extends StatefulWidget {
+  const MainContainer({
     super.key,
+    required this.provider,
   });
 
+  final ExamProvider provider;
+
+  @override
+  State<MainContainer> createState() => _MainContainerState();
+}
+
+class _MainContainerState extends State<MainContainer> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    // return formDropdown();
+    return Column(
       children: const [
-        Positioned(
-          top: 20,
-          child: SizedBox(
-            width: 250,
-            height: 200,
-            child: ExamList(),
-          ),
-        ),
-        Positioned(
-          top: 110,
-          child: SizedBox(
-            width: 250,
-            height: 200,
-            child: ExamList(),
-          ),
-        ),
-        Positioned(
-          top: 200,
-          child: SizedBox(
-            width: 250,
-            height: 200,
-            child: ExamList(),
-          ),
-        ),
+         SearchBox(),
+         SearchBox(),
+         SearchBox(),
       ],
     );
   }
 }
 
-class ExamList extends StatefulWidget {
-  const ExamList({super.key});
-
-  @override
-  State<ExamList> createState() => _ExamListState();
-}
-
-class _ExamListState extends State<ExamList> {
-  bool isOn = false;
-
-  var itemList = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-    'Item6',
-    'Item7',
-    'Item8',
-  ];
-
-  var dropdownvalue = 'Item1';
-  // List of items in our dropdown menu
+class SearchBox extends StatelessWidget {
+  const SearchBox({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // return  DropdownButton(
-    //         dropdownColor: Colors.blue,
-    //         value: dropdownvalue,
-    //         items: itemList.map((e) => DropdownMenuItem(child: Text(e) , value: e,)).toList(),
-    //         onChanged: (String? value) {
-    //           setState(() {
-    //             dropdownvalue = value!;
-    //           });
-    //         });
-    return DropdownButtonFormField(
-      value: dropdownvalue,
-      decoration: InputDecoration(
-        labelText: "Exams",
-        isCollapsed: false,
-      ),
-      onChanged: (value) {
-        setState() {
-          dropdownvalue = value as String;
-        }
-      },
-      items: itemList
-          .map((e) => DropdownMenuItem(
-                child: SizedBox(
-                  width: 100,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(Icons.home),
-                      Text(e),
-                    ],
-                  ),
-                ),
-                value: e,
-              ))
-          .toList(),
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(left: 20, right: 20, top: 30), 
+      // height: 400,
+      // color: Colors.blue,
+      child:
+      DropdownSearch<String>(
+        
+    popupProps: PopupProps.menu(
+        showSelectedItems: true,
+        showSearchBox: true,
+        disabledItemFn: (String s) => s.startsWith('I'),
+    ),
+    items: const [
+      "Brazil", 
+      // "Italia (Disabled)", 
+      "Tunisia", 
+      "Tunisia1", 
+      "Tunisia2", 
+      "Tunisia22", 
+      "Tunisia222", 
+      "Tunisi22a", 
+      "Tunisi22a", 
+      'Canada'],
+    dropdownDecoratorProps: const DropDownDecoratorProps(
+      
+        dropdownSearchDecoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              width: 1, 
+              color: Color.fromARGB(255, 193, 192, 192)
+            )
+          ),      
+            labelText: "Exam",
+            hintText: "country in menu mode",
+        ),
+    ),
+    onChanged: print,
+    selectedItem: "Brazil",
+),
     );
   }
 }
