@@ -104,7 +104,7 @@ class _MainContainerState extends State<MainContainer> {
                   ),
                   SearchSubjectBox(provider: widget.provider),
                   SearchTopicBox(provider: widget.provider),
-                  const   SizedBox(
+                  const SizedBox(
                     height: 20,
                   )
                 ],
@@ -175,150 +175,130 @@ class _MainContainerState extends State<MainContainer> {
                 const SizedBox(
                   height: 10,
                 ),
+                !isSummary
+                    ? SizedBox(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, bottom: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Summary
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    // isSummary = true;
+                                    isMultipleChoice = true;
+                                    isEssay = false;
+                                    isPractical = false;
+                                  });
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor: isMultipleChoice
+                                      ? const MaterialStatePropertyAll<Color>(
+                                          Color.fromARGB(255, 114, 116, 114))
+                                      : const MaterialStatePropertyAll<Color>(
+                                          Color.fromARGB(255, 255, 255, 255)),
+                                ),
+                                child: Text(
+                                  "Multiple Choice",
+                                  style: TextStyle(
+                                      color: isMultipleChoice
+                                          ? Colors.white
+                                          : Color.fromARGB(255, 114, 116, 114),
+                                      fontSize: 10,
+                                      wordSpacing: 1,
+                                      letterSpacing: 1),
+                                ),
+                              ),
 
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    // isSummary = true;
+                                    isMultipleChoice = false;
+                                    isEssay = true;
+                                    isPractical = false;
+                                  });
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor: isEssay
+                                      ? const MaterialStatePropertyAll<Color>(
+                                          Color.fromARGB(255, 114, 116, 114))
+                                      : const MaterialStatePropertyAll<Color>(
+                                          Color.fromARGB(255, 255, 255, 255)),
+                                ),
+                                child: Text(
+                                  "Essay && Structural",
+                                  style: TextStyle(
+                                      color: isEssay
+                                          ? Colors.white
+                                          : Color.fromARGB(255, 114, 116, 114),
+                                      fontSize: 10,
+                                      wordSpacing: 1,
+                                      letterSpacing: 1),
+                                ),
+                              ),
 
-
-
-
-              !isSummary?
-                SizedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Summary
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              // isSummary = true;
-                              isMultipleChoice = true;
-                              isEssay = false; 
-                              isPractical = false; 
-                            });
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: isMultipleChoice
-                                ? const MaterialStatePropertyAll<Color>(
-                                    Color.fromARGB(255, 114, 116, 114))
-                                : const MaterialStatePropertyAll<Color>(
-                                    Color.fromARGB(255, 255, 255, 255)),
-                          ),
-                          child: Text(
-                            "Multiple Choice",
-                            style: TextStyle(
-                                color: isMultipleChoice
-                                    ? Colors.white
-                                    : Color.fromARGB(255, 114, 116, 114),
-                                fontSize: 10,
-                                wordSpacing: 1,
-                                letterSpacing: 1),
-                          ),
-                        ),
-
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              // isSummary = true;
-                                isMultipleChoice = false;
-                              isEssay = true; 
-                              isPractical = false;
-                            });
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: isEssay
-                                ? const MaterialStatePropertyAll<Color>(
-                                    Color.fromARGB(255, 114, 116, 114))
-                                : const MaterialStatePropertyAll<Color>(
-                                    Color.fromARGB(255, 255, 255, 255)),
-                          ),
-                          child: Text(
-                            "Essay && Structural",
-                            style: TextStyle(
-                                color: isEssay
-                                    ? Colors.white
-                                    : Color.fromARGB(255, 114, 116, 114),
-                                fontSize: 10,
-                                wordSpacing: 1,
-                                letterSpacing: 1),
-                          ),
-                        ),
-
-                        // Passed Questions
-                        ElevatedButton(
-                          
-                          onPressed: () {
-                            setState(() {
-                                isMultipleChoice = false;
-                              isEssay = false; 
-                              isPractical = true; 
-                            });
-                          },
-                        
-                          style: ButtonStyle(
-                            
-                            backgroundColor: isPractical
-                                ? const MaterialStatePropertyAll<Color>(
-                                    Color.fromARGB(255, 114, 116, 114))
-                                : const MaterialStatePropertyAll<Color>(
-                                    Color.fromARGB(255, 255, 255, 255)),
-                          ),
-                          
-                          child: Text(
-                            "Practicals",
-                            style: TextStyle(
-                                color: isPractical
-                                    ? Colors.white
-                                    : Color.fromARGB(255, 114, 116, 114),
-                                fontSize: 10,
-                                wordSpacing: 1,
-                                letterSpacing: 1),
+                              // Passed Questions
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isMultipleChoice = false;
+                                    isEssay = false;
+                                    isPractical = true;
+                                  });
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor: isPractical
+                                      ? const MaterialStatePropertyAll<Color>(
+                                          Color.fromARGB(255, 114, 116, 114))
+                                      : const MaterialStatePropertyAll<Color>(
+                                          Color.fromARGB(255, 255, 255, 255)),
+                                ),
+                                child: Text(
+                                  "Practicals",
+                                  style: TextStyle(
+                                      color: isPractical
+                                          ? Colors.white
+                                          : Color.fromARGB(255, 114, 116, 114),
+                                      fontSize: 10,
+                                      wordSpacing: 1,
+                                      letterSpacing: 1),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                )
-                : const SizedBox()
-
-
-
-
-
-
-
+                      )
+                    : const SizedBox()
               ]),
-            ), 
-
-            isSummary?
-            Container(
-              width: double.infinity,
-              height: 900,
-              color: Colors.red,
-            ):
-            isMultipleChoice?
-            Container(
-              width: double.infinity,
-              height: 900,
-              color: Colors.blue,
-            ): 
-            isEssay?
-            Container(
-              width: double.infinity,
-              height: 900,
-              color: Colors.green,
-            ):
-            isPractical?
-            Container(
-              width: double.infinity,
-              height: 900,
-              color: Colors.orange,
-            ): 
-            Container(),
-
-
-
-
+            ),
+            isSummary
+                ? Container(
+                    width: double.infinity,
+                    height: 900,
+                    color: Colors.red,
+                  )
+                : isMultipleChoice
+                    ? Container(
+                        width: double.infinity,
+                        height: 900,
+                        color: Colors.blue,
+                      )
+                    : isEssay
+                        ? Container(
+                            width: double.infinity,
+                            height: 900,
+                            color: Colors.green,
+                          )
+                        : isPractical
+                            ? Container(
+                                width: double.infinity,
+                                height: 900,
+                                color: Colors.orange,
+                              )
+                            : Container(),
           ],
         ),
       ),
@@ -339,6 +319,23 @@ class SearchBox extends StatefulWidget {
 }
 
 class _SearchBoxState extends State<SearchBox> {
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(_scrollListerner);
+  }
+
+  void _scrollListerner() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      print("Fetch data ");
+    } else {
+      print("dont fetch data");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // final provider = Provider.of<ExamProvider>(context);
@@ -350,15 +347,28 @@ class _SearchBoxState extends State<SearchBox> {
       // height: 400,
       // color: Colors.blue,
       child: DropdownSearch<String>(
+        //  mode: DropdowmMode.BOTTOM_SHEET,
+
         popupProps: PopupProps.menu(
+          scrollbarProps:  ScrollbarProps(
+            notificationPredicate: (notification) {
+              print("object");
+
+              // this is where we will fetch more items ........ 
+
+
+
+              return true;
+            },
+          ),
           searchDelay: const Duration(seconds: 2),
           showSelectedItems: true,
           showSearchBox: true,
 
-//...........................................................................................
-// functions that goes to the backend and fetches the result ..... ..........................
+          //...........................................................................................
+          // functions that goes to the backend and fetches the result ..... ..........................
           disabledItemFn: (String s) => s.startsWith('I'),
-//...........................................................................................
+          //...........................................................................................
         ),
         // ignore: avoid_function_literals_in_foreach_calls
 
@@ -373,13 +383,35 @@ class _SearchBoxState extends State<SearchBox> {
             hintText: "Choose Exam",
           ),
         ),
-
+        // asyncItems: ,
         //...........................................................................................
         onChanged: (value) {
           // print(value);
           widget.provider.setChoosenExamName(value as String);
         },
-//...........................................................................................
+
+        // itemAsString: (item) {
+        //   return "Hello";
+        // },
+        dropdownBuilder: (context, selectedItem) {
+          return SizedBox(
+            child: Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Icon(Icons.book),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  Text(widget.provider.choosenExamname)
+                ]),
+          );
+        },
+
+        // onSaved: (newValue) => {
+        //   print("ehllo")
+        // },
+
+        //...........................................................................................
 
         // onChanged: print,
 
@@ -433,7 +465,7 @@ class _SearchSubjectBoxState extends State<SearchSubjectBox> {
                   borderSide: BorderSide(
                       width: 1, color: Color.fromARGB(255, 193, 192, 192))),
               labelText: "Subject",
-              hintText: "Choose Subject",
+              hintText: "Choose subject",
               hintStyle: TextStyle(color: Colors.black)),
         ),
 
@@ -515,11 +547,3 @@ class _SearchTopicBoxState extends State<SearchTopicBox> {
     );
   }
 }
-
-
-
-
-
-
-
-
