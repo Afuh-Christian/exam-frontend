@@ -11,11 +11,13 @@ class ExamProvider extends ChangeNotifier {
     Exam(id: 5, name: "ens lan"),
     Exam(id: 6, name: "ens question"),
     Exam(id: 7, name: "ens adsfasfdad question"),
+    Exam(
+        id: 8,
+        name:
+            "ens adsfasfdad question ens adsfasfdad question ens adsfasfdad question ens adsfasfdad question sss "),
   ];
 
-  List<Exam> getExamList() => examsList;
-
-  String choosenExamname = "";
+  String choosenExamname = "choose exam";
 
   int getChoosenExamID() {
     var filetered =
@@ -24,12 +26,28 @@ class ExamProvider extends ChangeNotifier {
     return filetered.isEmpty ? 0 : filetered[0].id;
   }
 
-  void setChoosenExamName(String value) {
+  Future<void> setChoosenExamName(String value) async {
     choosenExamname = value;
-    choosenSubject = "";
-    choosenTopic = "";
+    choosenSubject = "Choose Subject";
+    choosenTopic = "Choose Topic";
     notifyListeners();
   }
+
+  // Search implementation .....  ..
+
+  String searchExamValue = "";
+
+  List<Exam> getExamList() => examsList
+      .where((element) =>
+          element.name.toLowerCase().startsWith(searchExamValue.toLowerCase()))
+      .toList();
+
+  void searchExamList(String value) {
+    searchExamValue = value;
+    notifyListeners();
+  }
+
+  // End of exam .... ...........................
 
   List<Subject> subjects = [
     Subject(id: 1, name: "O Physics", examID: 1),
@@ -53,6 +71,10 @@ class ExamProvider extends ChangeNotifier {
   List<Subject> getSubjectList() {
     List<Subject> subjectlist = subjects
         .where((element) => element.examID == getChoosenExamID())
+        .toList()
+        .where((element) => element.name
+            .toLowerCase()
+            .startsWith(searchSubjectValue.toLowerCase()))
         .toList();
 
     if (subjectlist.isEmpty) {
@@ -62,20 +84,28 @@ class ExamProvider extends ChangeNotifier {
     }
   }
 
-  String choosenSubject = "";
+  String choosenSubject = "choose Subject";
 
   int getChoosenSubjectID() {
     var filetered = getSubjectList()
         .where((element) => element.name == choosenSubject)
         .toList();
-
     if (filetered.isEmpty) return 0;
     return filetered[0].id;
   }
 
   void setChoosenSubjectName(String value) {
     choosenSubject = value;
-     choosenTopic = "";
+    choosenTopic = "Choose Topic";
+    notifyListeners();
+  }
+
+  // Search implementation .....  ..
+
+  String searchSubjectValue = "";
+
+  void searchSubjectList(String value) {
+    searchSubjectValue = value;
     notifyListeners();
   }
 
@@ -160,10 +190,24 @@ class ExamProvider extends ChangeNotifier {
     Topic(id: 59, name: "E maths6", subjectID: 15),
   ];
 
+
+// search implementation .... 
+  String searchTopicValue = "";
+
   List<Topic> getTopicList() {
     List<Topic> topiclist = topics
         .where((element) => element.subjectID == getChoosenSubjectID())
+        .toList()
+        .where((element) => element.name
+            .toLowerCase()
+            .startsWith(searchTopicValue.toLowerCase()))
         .toList();
+
+
+
+
+  // Search implementation .....
+
 
     if (topiclist.isEmpty) {
       return [Topic(id: 0, name: "No items", subjectID: -1)];
@@ -172,7 +216,7 @@ class ExamProvider extends ChangeNotifier {
     }
   }
 
-  String choosenTopic = "";
+  String choosenTopic = "Choose Topic";
 
   int getChoosenTopicID() {
     var filetered = getTopicList()
@@ -185,6 +229,17 @@ class ExamProvider extends ChangeNotifier {
     choosenTopic = value;
     notifyListeners();
   }
+
+  // Search implementation .....
+
+ void searchTopicList(String value) {
+    searchTopicValue = value;
+    notifyListeners();
+  }
+
+
+
+
 
   int _numberOfLikes = 0;
 

@@ -3,8 +3,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import '../../../Dummy_data.dart';
 import '../../../Provider/Provider.dart';
+import '../Components/PopUps/PopExam.dart';
+import '../Components/PopUps/PopSubject.dart';
+import '../Components/PopUps/PopTopic.dart';
+import '../Components/SearchBoxExam.dart';
 import 'AboutPage.dart';
 import 'Sroll.dart';
 
@@ -61,11 +66,9 @@ class _HomePageState extends State<HomePage> {
     // Provider .... for global state ....
     final provider = Provider.of<ExamProvider>(context);
 
-    // return MainContainer(provider: provider);
+    return MainContainer(provider: provider);
 
-    return MainContainer(
-      provider: provider,
-    );
+    // return  SearchBoxCustom();
   }
 }
 
@@ -89,6 +92,11 @@ class _MainContainerState extends State<MainContainer> {
 
   @override
   Widget build(BuildContext context) {
+    // final provider = widget.Provider.of<ExamProvider>(context, listen: false);
+
+
+    var value =
+        "this is what i do durring the holidays and we see each od adsfa asdf asdfa durring the holidays and we see each od adsfa asdf asdfa adsff adfad ther as friends";
     return Container(
       child: SingleChildScrollView(
         child: Column(
@@ -99,12 +107,29 @@ class _MainContainerState extends State<MainContainer> {
               //  color: Colors.red,
               child: Column(
                 children: [
-                  SearchBox(
-                    provider: widget.provider,
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+            // Exam list ...... 
+                     PopExamMenu(
+                              provider: widget.provider,
+                            ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+            // Subjects list ........
+                      PopSubjectMenu(provider: widget.provider,)
+                    ],
                   ),
-                  SearchSubjectBox(provider: widget.provider),
-                  SearchTopicBox(provider: widget.provider),
-                  const SizedBox(
+                 const  SizedBox(
+                    height: 20,
+                  )
+                  
+                  ,PopTopicMenu(provider: widget.provider,),
+
+                  const  SizedBox(
                     height: 20,
                   )
                 ],
@@ -306,244 +331,276 @@ class _MainContainerState extends State<MainContainer> {
   }
 }
 
-class SearchBox extends StatefulWidget {
-  const SearchBox({
-    super.key,
-    required this.provider,
-  });
-
-  final ExamProvider provider;
-
-  @override
-  State<SearchBox> createState() => _SearchBoxState();
-}
-
-class _SearchBoxState extends State<SearchBox> {
-  final scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    scrollController.addListener(_scrollListerner);
-  }
-
-  void _scrollListerner() {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
-      print("Fetch data ");
-    } else {
-      print("dont fetch data");
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // final provider = Provider.of<ExamProvider>(context);
-    print(widget.provider.getSubjectList().map((e) => e.name).toList());
-    print("Hello");
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(left: 20, right: 20, top: 30),
-      // height: 400,
-      // color: Colors.blue,
-      child: DropdownSearch<String>(
-        //  mode: DropdowmMode.BOTTOM_SHEET,
-
-        popupProps: PopupProps.menu(
-          scrollbarProps:  ScrollbarProps(
-            notificationPredicate: (notification) {
-              print("object");
-
-              // this is where we will fetch more items ........ 
 
 
 
-              return true;
-            },
-          ),
-          searchDelay: const Duration(seconds: 2),
-          showSelectedItems: true,
-          showSearchBox: true,
 
-          //...........................................................................................
-          // functions that goes to the backend and fetches the result ..... ..........................
-          disabledItemFn: (String s) => s.startsWith('I'),
-          //...........................................................................................
-        ),
-        // ignore: avoid_function_literals_in_foreach_calls
 
-        items: widget.provider.getExamList().map((e) => e.name).toList(),
 
-        dropdownDecoratorProps: const DropDownDecoratorProps(
-          dropdownSearchDecoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    width: 1, color: Color.fromARGB(255, 193, 192, 192))),
-            labelText: "Exam",
-            hintText: "Choose Exam",
-          ),
-        ),
-        // asyncItems: ,
-        //...........................................................................................
-        onChanged: (value) {
-          // print(value);
-          widget.provider.setChoosenExamName(value as String);
-        },
 
-        // itemAsString: (item) {
-        //   return "Hello";
-        // },
-        dropdownBuilder: (context, selectedItem) {
-          return SizedBox(
-            child: Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const Icon(Icons.book),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  Text(widget.provider.choosenExamname)
-                ]),
-          );
-        },
 
-        // onSaved: (newValue) => {
-        //   print("ehllo")
-        // },
 
-        //...........................................................................................
 
-        // onChanged: print,
 
-        // selectedItem: widget.provider.getExamList()[0].name,
-        selectedItem: "",
-      ),
-    );
-  }
-}
 
-class SearchSubjectBox extends StatefulWidget {
-  SearchSubjectBox({
-    super.key,
-    required this.provider,
-  });
 
-  ExamProvider provider;
 
-  @override
-  State<SearchSubjectBox> createState() => _SearchSubjectBoxState();
-}
 
-class _SearchSubjectBoxState extends State<SearchSubjectBox> {
-  @override
-  Widget build(BuildContext context) {
-    // final provider = Provider.of<ExamProvider>(context);
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(left: 20, right: 20, top: 30),
-      // height: 400,
-      // color: Colors.blue,
-      child: DropdownSearch<String>(
-        popupProps: PopupProps.menu(
-          searchDelay: const Duration(seconds: 2),
-          showSelectedItems: true,
-          showSearchBox: true,
 
-//...........................................................................................
-// functions that goes to the backend and fetches the result ..... ..........................
-          disabledItemFn: (String s) => s.startsWith('I'),
-//...........................................................................................
-        ),
-        // ignore: avoid_function_literals_in_foreach_calls
 
-        items: widget.provider.getSubjectList().map((e) => e.name).toList(),
-        // items: ["A", "B" , "C" , "h", "d"],
 
-        dropdownDecoratorProps: const DropDownDecoratorProps(
-          dropdownSearchDecoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 1, color: Color.fromARGB(255, 193, 192, 192))),
-              labelText: "Subject",
-              hintText: "Choose subject",
-              hintStyle: TextStyle(color: Colors.black)),
-        ),
 
-        //...........................................................................................
-        onChanged: (value) {
-          widget.provider.setChoosenSubjectName(value as String);
-        },
-//...........................................................................................
 
-        // onChanged: print,
 
-        // selectedItem: widget.provider.getSubjectList()[0].name,
-        selectedItem: widget.provider.choosenSubject,
-        // selectedItem: "h",
-      ),
-    );
-  }
-}
 
-class SearchTopicBox extends StatefulWidget {
-  SearchTopicBox({
-    super.key,
-    required this.provider,
-  });
 
-  ExamProvider provider;
 
-  @override
-  State<SearchTopicBox> createState() => _SearchTopicBoxState();
-}
 
-class _SearchTopicBoxState extends State<SearchTopicBox> {
-  @override
-  Widget build(BuildContext context) {
-    // final provider = Provider.of<ExamProvider>(context);
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(left: 20, right: 20, top: 30),
-      // height: 400,
-      // color: Colors.blue,
-      child: DropdownSearch<String>(
-        popupProps: PopupProps.menu(
-          searchDelay: const Duration(seconds: 2),
-          showSelectedItems: true,
-          showSearchBox: true,
 
-//...........................................................................................
-// functions that goes to the backend and fetches the result ..... ..........................
-          disabledItemFn: (String s) => s.startsWith('I'),
-//...........................................................................................
-        ),
-        // ignore: avoid_function_literals_in_foreach_calls
 
-        items: widget.provider.getTopicList().map((e) => e.name).toList(),
-        // items: ["A", "B" , "C" , "h", "d"],
 
-        dropdownDecoratorProps: const DropDownDecoratorProps(
-          dropdownSearchDecoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 1, color: Color.fromARGB(255, 193, 192, 192))),
-              labelText: "Topic",
-              hintText: "Choose Subject",
-              hintStyle: TextStyle(color: Colors.black)),
-        ),
 
-        //...........................................................................................
-        onChanged: (value) {
-          widget.provider.setChoosenTopicName(value as String);
-        },
-//...........................................................................................
 
-        // onChanged: print,
 
-        // selectedItem: widget.provider.getSubjectList()[0].name,
-        selectedItem: widget.provider.choosenTopic,
-        // selectedItem: "h",
-      ),
-    );
-  }
-}
+
+// class SearchBox extends StatefulWidget {
+//   const SearchBox({
+//     super.key,
+//     required this.provider,
+//   });
+
+//   final ExamProvider provider;
+
+//   @override
+//   State<SearchBox> createState() => _SearchBoxState();
+// }
+
+// class _SearchBoxState extends State<SearchBox> {
+//   final scrollController = ScrollController();
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     scrollController.addListener(_scrollListerner);
+//   }
+
+//   void _scrollListerner() {
+//     if (scrollController.position.pixels ==
+//         scrollController.position.maxScrollExtent) {
+//       print("Fetch data ");
+//     } else {
+//       print("dont fetch data");
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     // final provider = Provider.of<ExamProvider>(context);
+//     print(widget.provider.getSubjectList().map((e) => e.name).toList());
+//     print("Hello");
+//     return Container(
+//       width: double.infinity,
+//       margin: const EdgeInsets.only(left: 20, right: 20, top: 30),
+//       // height: 400,
+//       // color: Colors.blue,
+//       child: DropdownSearch<String>(
+//         //  mode: DropdowmMode.BOTTOM_SHEET,
+
+//         popupProps: PopupProps.menu(
+//           // listViewProps: ListViewProps(scrollDirection: ),
+//           scrollbarProps: ScrollbarProps(
+//             trackBorderColor: Colors.red,
+//             trackVisibility: true,
+
+//             // scrollbarOrientation: ScrollbarOrientation.bottom,
+//             notificationPredicate: (notification) {
+//               print("object");
+//               // print(notification.context);
+
+//               // this is where we will fetch more items ........
+
+//               return false;
+//             },
+//           ),
+//           searchDelay: const Duration(seconds: 2),
+//           showSelectedItems: true,
+//           showSearchBox: true,
+
+//           //...........................................................................................
+//           // functions that goes to the backend and fetches the result ..... ..........................
+//           disabledItemFn: (String s) => s.startsWith('I'),
+//           //...........................................................................................
+//         ),
+//         // ignore: avoid_function_literals_in_foreach_calls
+
+//         items: widget.provider.getExamList().map((e) => e.name).toList(),
+
+//         dropdownDecoratorProps: const DropDownDecoratorProps(
+//           dropdownSearchDecoration: InputDecoration(
+//             enabledBorder: OutlineInputBorder(
+//                 borderSide: BorderSide(
+//                     width: 1, color: Color.fromARGB(255, 193, 192, 192))),
+//             labelText: "Exam",
+//             hintText: "Choose Exam",
+//           ),
+//         ),
+//         // asyncItems: ,
+//         //...........................................................................................
+//         onChanged: (value) {
+//           // print(value);
+//           widget.provider.setChoosenExamName(value as String);
+//         },
+
+//         // itemAsString: (item) {
+//         //   return "Hello";
+//         // },
+//         dropdownBuilder: (context, selectedItem) {
+//           return SizedBox(
+//             child: Row(
+//                 // mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                 children: [
+//                   const Icon(Icons.book),
+//                   const SizedBox(
+//                     width: 30,
+//                   ),
+//                   Text(widget.provider.choosenExamname)
+//                 ]),
+//           );
+//         },
+
+//         // onSaved: (newValue) => {
+//         //   print("ehllo")
+//         // },
+
+//         //...........................................................................................
+
+//         // onChanged: print,
+
+//         // selectedItem: widget.provider.getExamList()[0].name,
+//         selectedItem: "",
+//       ),
+//     );
+//   }
+// }
+
+// class SearchSubjectBox extends StatefulWidget {
+//   SearchSubjectBox({
+//     super.key,
+//     required this.provider,
+//   });
+
+//   ExamProvider provider;
+
+//   @override
+//   State<SearchSubjectBox> createState() => _SearchSubjectBoxState();
+// }
+
+// class _SearchSubjectBoxState extends State<SearchSubjectBox> {
+//   @override
+//   Widget build(BuildContext context) {
+//     // final provider = Provider.of<ExamProvider>(context);
+//     return Container(
+//       width: double.infinity,
+//       margin: const EdgeInsets.only(left: 20, right: 20, top: 30),
+//       // height: 400,
+//       // color: Colors.blue,
+//       child: DropdownSearch<String>(
+//         popupProps: PopupProps.menu(
+//           searchDelay: const Duration(seconds: 2),
+//           showSelectedItems: true,
+//           showSearchBox: true,
+
+// //...........................................................................................
+// // functions that goes to the backend and fetches the result ..... ..........................
+//           disabledItemFn: (String s) => s.startsWith('I'),
+// //...........................................................................................
+//         ),
+//         // ignore: avoid_function_literals_in_foreach_calls
+
+//         items: widget.provider.getSubjectList().map((e) => e.name).toList(),
+//         // items: ["A", "B" , "C" , "h", "d"],
+
+//         dropdownDecoratorProps: const DropDownDecoratorProps(
+//           dropdownSearchDecoration: InputDecoration(
+//               enabledBorder: OutlineInputBorder(
+//                   borderSide: BorderSide(
+//                       width: 1, color: Color.fromARGB(255, 193, 192, 192))),
+//               labelText: "Subject",
+//               hintText: "Choose subject",
+//               hintStyle: TextStyle(color: Colors.black)),
+//         ),
+
+//         //...........................................................................................
+//         onChanged: (value) {
+//           widget.provider.setChoosenSubjectName(value as String);
+//         },
+// //...........................................................................................
+
+//         // onChanged: print,
+
+//         // selectedItem: widget.provider.getSubjectList()[0].name,
+//         selectedItem: widget.provider.choosenSubject,
+//         // selectedItem: "h",
+//       ),
+//     );
+//   }
+// }
+
+// class SearchTopicBox extends StatefulWidget {
+//   SearchTopicBox({
+//     super.key,
+//     required this.provider,
+//   });
+
+//   ExamProvider provider;
+
+//   @override
+//   State<SearchTopicBox> createState() => _SearchTopicBoxState();
+// }
+
+// class _SearchTopicBoxState extends State<SearchTopicBox> {
+//   @override
+//   Widget build(BuildContext context) {
+//     // final provider = Provider.of<ExamProvider>(context);
+//     return Container(
+//       width: double.infinity,
+//       margin: const EdgeInsets.only(left: 20, right: 20, top: 30),
+//       // height: 400,
+//       // color: Colors.blue,
+//       child: DropdownSearch<String>(
+//         popupProps: PopupProps.menu(
+//           searchDelay: const Duration(seconds: 2),
+//           showSelectedItems: true,
+//           showSearchBox: true,
+
+// //...........................................................................................
+// // functions that goes to the backend and fetches the result ..... ..........................
+//           disabledItemFn: (String s) => s.startsWith('I'),
+// //...........................................................................................
+//         ),
+//         // ignore: avoid_function_literals_in_foreach_calls
+
+//         items: widget.provider.getTopicList().map((e) => e.name).toList(),
+//         // items: ["A", "B" , "C" , "h", "d"],
+
+//         dropdownDecoratorProps: const DropDownDecoratorProps(
+//           dropdownSearchDecoration: InputDecoration(
+//               enabledBorder: OutlineInputBorder(
+//                   borderSide: BorderSide(
+//                       width: 1, color: Color.fromARGB(255, 193, 192, 192))),
+//               labelText: "Topic",
+//               hintText: "Choose Subject",
+//               hintStyle: TextStyle(color: Colors.black)),
+//         ),
+
+
+//         onChanged: (value) {
+//           widget.provider.setChoosenTopicName(value as String);
+//         },
+
+//         selectedItem: widget.provider.choosenTopic,
+
+//       ),
+//     );
+//   }
+// }
