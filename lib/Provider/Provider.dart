@@ -30,6 +30,7 @@ class ExamProvider extends ChangeNotifier {
     choosenExamname = value;
     choosenSubject = "Choose Subject";
     choosenTopic = "Choose Topic";
+    searchExamValue = "";
     notifyListeners();
   }
 
@@ -97,6 +98,7 @@ class ExamProvider extends ChangeNotifier {
   void setChoosenSubjectName(String value) {
     choosenSubject = value;
     choosenTopic = "Choose Topic";
+    searchSubjectValue = "";
     notifyListeners();
   }
 
@@ -190,8 +192,7 @@ class ExamProvider extends ChangeNotifier {
     Topic(id: 59, name: "E maths6", subjectID: 15),
   ];
 
-
-// search implementation .... 
+// search implementation ....
   String searchTopicValue = "";
 
   List<Topic> getTopicList() {
@@ -203,11 +204,7 @@ class ExamProvider extends ChangeNotifier {
             .startsWith(searchTopicValue.toLowerCase()))
         .toList();
 
-
-
-
-  // Search implementation .....
-
+    // Search implementation .....
 
     if (topiclist.isEmpty) {
       return [Topic(id: 0, name: "No items", subjectID: -1)];
@@ -227,19 +224,16 @@ class ExamProvider extends ChangeNotifier {
 
   void setChoosenTopicName(String value) {
     choosenTopic = value;
+    searchTopicValue = "";
     notifyListeners();
   }
 
   // Search implementation .....
 
- void searchTopicList(String value) {
+  void searchTopicList(String value) {
     searchTopicValue = value;
     notifyListeners();
   }
-
-
-
-
 
   int _numberOfLikes = 0;
 
