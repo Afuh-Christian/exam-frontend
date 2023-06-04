@@ -9,6 +9,9 @@ import '../../../Provider/Provider.dart';
 import '../Components/PopUps/PopExam.dart';
 import '../Components/PopUps/PopSubject.dart';
 import '../Components/PopUps/PopTopic.dart';
+import '../Components/Questions/EssayQuestions/EssayQuestionList.dart';
+import '../Components/Questions/EssayQuestions/SingleEssayQuestion.dart';
+import '../Components/Questions/MultipleChoice/MultipleChoice.dart';
 import '../Components/SearchBoxExam.dart';
 import 'AboutPage.dart';
 import 'Sroll.dart';
@@ -99,47 +102,47 @@ class _MainContainerState extends State<MainContainer> {
         "this is what i do durring the holidays and we see each od adsfa asdf asdfa durring the holidays and we see each od adsfa asdf asdfa adsff adfad ther as friends";
     return Container(
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              // containing the Search boxes .......
-
-              //  color: Colors.red,
-              child: Column(
-                children: [
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-            // Exam list ...... 
-                     PopExamMenu(
-                              provider: widget.provider,
-                            ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-            // Subjects list ........
-                      PopSubjectMenu(provider: widget.provider,)
-                    ],
-                  ),
-                 const  SizedBox(
-                    height: 20,
-                  )
-                  
-                  ,PopTopicMenu(provider: widget.provider,),
-
-                  const  SizedBox(
-                    height: 20,
-                  )
-                ],
+        child: Padding(
+          padding: const EdgeInsets.only(right:15 , left: 15),
+          child: Column(
+            children: [
+              Container(
+                // containing the Search boxes .......
+        
+                //  color: Colors.red,
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+              // Exam list ...... 
+                       PopExamMenu(
+                                provider: widget.provider,
+                              ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+              // Subjects list ........
+                        PopSubjectMenu(provider: widget.provider,)
+                      ],
+                    ),
+                   const  SizedBox(
+                      height: 20,
+                    )
+                    
+                    ,PopTopicMenu(provider: widget.provider,),
+        
+                    const  SizedBox(
+                      height: 20,
+                    )
+                  ],
+                ),
               ),
-            ),
-            Container(
-              child: Column(children: [
-                SizedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
+              Container(
+                child: Column(children: [
+                  SizedBox(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -196,135 +199,138 @@ class _MainContainerState extends State<MainContainer> {
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                !isSummary
-                    ? SizedBox(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              // Summary
-                              ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    // isSummary = true;
-                                    isMultipleChoice = true;
-                                    isEssay = false;
-                                    isPractical = false;
-                                  });
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor: isMultipleChoice
-                                      ? const MaterialStatePropertyAll<Color>(
-                                          Color.fromARGB(255, 114, 116, 114))
-                                      : const MaterialStatePropertyAll<Color>(
-                                          Color.fromARGB(255, 255, 255, 255)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  !isSummary
+                      ? SizedBox(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // Summary
+                                ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      // isSummary = true;
+                                      isMultipleChoice = true;
+                                      isEssay = false;
+                                      isPractical = false;
+                                    });
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor: isMultipleChoice
+                                        ? const MaterialStatePropertyAll<Color>(
+                                            Color.fromARGB(255, 114, 116, 114))
+                                        : const MaterialStatePropertyAll<Color>(
+                                            Color.fromARGB(255, 255, 255, 255)),
+                                  ),
+                                  child: Text(
+                                    "Multiple Choice",
+                                    style: TextStyle(
+                                        color: isMultipleChoice
+                                            ? Colors.white
+                                            : Color.fromARGB(255, 114, 116, 114),
+                                        fontSize: 10,
+                                        wordSpacing: 1,
+                                        letterSpacing: 1),
+                                  ),
                                 ),
-                                child: Text(
-                                  "Multiple Choice",
-                                  style: TextStyle(
-                                      color: isMultipleChoice
-                                          ? Colors.white
-                                          : Color.fromARGB(255, 114, 116, 114),
-                                      fontSize: 10,
-                                      wordSpacing: 1,
-                                      letterSpacing: 1),
+                                  
+                                ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      // isSummary = true;
+                                      isMultipleChoice = false;
+                                      isEssay = true;
+                                      isPractical = false;
+                                    });
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor: isEssay
+                                        ? const MaterialStatePropertyAll<Color>(
+                                            Color.fromARGB(255, 114, 116, 114))
+                                        : const MaterialStatePropertyAll<Color>(
+                                            Color.fromARGB(255, 255, 255, 255)),
+                                  ),
+                                  child: Text(
+                                    "Essay && Structural",
+                                    style: TextStyle(
+                                        color: isEssay
+                                            ? Colors.white
+                                            : Color.fromARGB(255, 114, 116, 114),
+                                        fontSize: 10,
+                                        wordSpacing: 1,
+                                        letterSpacing: 1),
+                                  ),
                                 ),
-                              ),
-
-                              ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    // isSummary = true;
-                                    isMultipleChoice = false;
-                                    isEssay = true;
-                                    isPractical = false;
-                                  });
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor: isEssay
-                                      ? const MaterialStatePropertyAll<Color>(
-                                          Color.fromARGB(255, 114, 116, 114))
-                                      : const MaterialStatePropertyAll<Color>(
-                                          Color.fromARGB(255, 255, 255, 255)),
+                                  
+                                // Passed Questions
+                                ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isMultipleChoice = false;
+                                      isEssay = false;
+                                      isPractical = true;
+                                    });
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor: isPractical
+                                        ? const MaterialStatePropertyAll<Color>(
+                                            Color.fromARGB(255, 114, 116, 114))
+                                        : const MaterialStatePropertyAll<Color>(
+                                            Color.fromARGB(255, 255, 255, 255)),
+                                  ),
+                                  child: Text(
+                                    "Practicals",
+                                    style: TextStyle(
+                                        color: isPractical
+                                            ? Colors.white
+                                            : Color.fromARGB(255, 114, 116, 114),
+                                        fontSize: 10,
+                                        wordSpacing: 1,
+                                        letterSpacing: 1),
+                                  ),
                                 ),
-                                child: Text(
-                                  "Essay && Structural",
-                                  style: TextStyle(
-                                      color: isEssay
-                                          ? Colors.white
-                                          : Color.fromARGB(255, 114, 116, 114),
-                                      fontSize: 10,
-                                      wordSpacing: 1,
-                                      letterSpacing: 1),
-                                ),
-                              ),
-
-                              // Passed Questions
-                              ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    isMultipleChoice = false;
-                                    isEssay = false;
-                                    isPractical = true;
-                                  });
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor: isPractical
-                                      ? const MaterialStatePropertyAll<Color>(
-                                          Color.fromARGB(255, 114, 116, 114))
-                                      : const MaterialStatePropertyAll<Color>(
-                                          Color.fromARGB(255, 255, 255, 255)),
-                                ),
-                                child: Text(
-                                  "Practicals",
-                                  style: TextStyle(
-                                      color: isPractical
-                                          ? Colors.white
-                                          : Color.fromARGB(255, 114, 116, 114),
-                                      fontSize: 10,
-                                      wordSpacing: 1,
-                                      letterSpacing: 1),
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                    : const SizedBox()
-              ]),
-            ),
-            isSummary
-                ? Container(
-                    width: double.infinity,
-                    height: 900,
-                    color: Colors.red,
-                  )
-                : isMultipleChoice
-                    ? Container(
-                        width: double.infinity,
-                        height: 900,
-                        color: Colors.blue,
-                      )
-                    : isEssay
-                        ? Container(
-                            width: double.infinity,
-                            height: 900,
-                            color: Colors.green,
-                          )
-                        : isPractical
-                            ? Container(
-                                width: double.infinity,
-                                height: 900,
-                                color: Colors.orange,
-                              )
-                            : Container(),
-          ],
+                        )
+                      : const SizedBox(),
+                      
+                ]),
+              ),
+              isSummary
+                  ? Container(
+                      width: double.infinity,
+                      height: 650,
+                      color: Colors.red,
+                    )
+                  : isMultipleChoice
+                      ? Container(
+                          width: double.infinity,
+                          height: 650,
+                          color: Colors.blue,
+                          // child: const MultipleChoice(),
+                         
+                        )
+                      : isEssay
+                          ? Container(
+                              width: double.infinity,
+                              height: 650,
+                              // color: Colors.green,
+                               child: const EssayQuestionList(),
+                            )
+                          : isPractical
+                              ? Container(
+                                  width: double.infinity,
+                                  height: 650,
+                                  color: Colors.orange,
+                                )
+                              : Container(),
+            ],
+          ),
         ),
       ),
     );

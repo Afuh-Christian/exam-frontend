@@ -69,6 +69,8 @@ class ExamProvider extends ChangeNotifier {
     Subject(id: 15, name: "E maths", examID: 4),
   ];
 
+String searchSubjectValue = "";
+
   List<Subject> getSubjectList() {
     List<Subject> subjectlist = subjects
         .where((element) => element.examID == getChoosenExamID())
@@ -104,7 +106,7 @@ class ExamProvider extends ChangeNotifier {
 
   // Search implementation .....  ..
 
-  String searchSubjectValue = "";
+  
 
   void searchSubjectList(String value) {
     searchSubjectValue = value;
@@ -146,7 +148,7 @@ class ExamProvider extends ChangeNotifier {
     Topic(id: 24, name: "A Chem4", subjectID: 5),
     Topic(id: 25, name: "A Chem5", subjectID: 5),
 
-    // Topic(id: 6, name: "A Bio", subjectID: 2),
+
     Topic(id: 26, name: "A Literature1", subjectID: 7),
     Topic(id: 27, name: "A Literature2", subjectID: 7),
     Topic(id: 28, name: "A Literature3", subjectID: 7),
@@ -155,7 +157,7 @@ class ExamProvider extends ChangeNotifier {
     Topic(id: 31, name: "A Literature6", subjectID: 7),
     Topic(id: 32, name: "A Literature7", subjectID: 7),
 
-    // Topic(id: 8, name: "P english", subjectID: 3),
+  
 
     Topic(id: 33, name: "P Electronics1", subjectID: 9),
     Topic(id: 34, name: "P Electronics2", subjectID: 9),
@@ -169,7 +171,7 @@ class ExamProvider extends ChangeNotifier {
     Topic(id: 41, name: "P French4", subjectID: 10),
     Topic(id: 42, name: "P French5", subjectID: 10),
 
-    // Topic(id: 11, name: "P Manual machanics", subjectID: 3),
+
     Topic(id: 43, name: "E History1", subjectID: 12),
     Topic(id: 44, name: "E History2", subjectID: 12),
     Topic(id: 45, name: "E History3", subjectID: 12),
@@ -182,7 +184,7 @@ class ExamProvider extends ChangeNotifier {
     Topic(id: 51, name: "E English4", subjectID: 13),
     Topic(id: 52, name: "E English5", subjectID: 13),
     Topic(id: 53, name: "E English6", subjectID: 13),
-    // Topic(id: 14, name: "E history", subjectID: 4),
+
 
     Topic(id: 54, name: "E maths1", subjectID: 15),
     Topic(id: 55, name: "E maths2", subjectID: 15),
@@ -192,8 +194,10 @@ class ExamProvider extends ChangeNotifier {
     Topic(id: 59, name: "E maths6", subjectID: 15),
   ];
 
-// search implementation ....
-  String searchTopicValue = "";
+
+
+    // Search implementation .....
+      String searchTopicValue = "";
 
   List<Topic> getTopicList() {
     List<Topic> topiclist = topics
@@ -204,7 +208,7 @@ class ExamProvider extends ChangeNotifier {
             .startsWith(searchTopicValue.toLowerCase()))
         .toList();
 
-    // Search implementation .....
+
 
     if (topiclist.isEmpty) {
       return [Topic(id: 0, name: "No items", subjectID: -1)];
@@ -234,6 +238,23 @@ class ExamProvider extends ChangeNotifier {
     searchTopicValue = value;
     notifyListeners();
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   int _numberOfLikes = 0;
 
