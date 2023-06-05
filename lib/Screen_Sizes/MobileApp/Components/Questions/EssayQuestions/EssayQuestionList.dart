@@ -10,12 +10,93 @@ class EssayQuestionList extends StatefulWidget {
 }
 
 class _EssayChoiceState extends State<EssayQuestionList> {
+  bool number = false;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SingleEssayQuestion(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SingleEssayQuestion(
+            number: number ,
+            onclick: () {
+              setState(() {
+                 number = !number;
+              });
+            print(number);
+          }),SizedBox(height: 40,),
+          SingleEssayQuestion(
+            number: number ,
+            onclick: () {
+              setState(() {
+                 number = !number;
+              });
+            print(number);
+          }),SizedBox(height: 40,),
+          SingleEssayQuestion(
+            number: number ,
+            onclick: () {
+              setState(() {
+                 number = !number;
+              });
+            print(number);
+          }),
+          SizedBox(
+            height: 40,
+          ),
+          SingleEssayQuestion(
+            number: number ,
+            onclick: () {
+              setState(() {
+                 number = !number;
+              });
+            print(number);
+          }),
+          SizedBox(
+            height: 40,
+          ),
+          SingleEssayQuestion(
+            number: number ,
+            onclick: () {
+              setState(() {
+                 number = !number;
+              });
+            print(number);
+          }),
+          SizedBox(
+            height: 40,
+          ),
+          SingleEssayQuestion(
+            number: number ,
+            onclick: () {
+              setState(() {
+                 number = !number;
+              });
+            print(number);
+          }),
+          SizedBox(
+            height: 40,
+          ),
+          SingleEssayQuestion(
+            number: number ,
+            onclick: () {
+              setState(() {
+                 number = !number;
+              });
+            print(number);
+          }),
+          SizedBox(
+            height: 40,
+          ),
+          // SingleEssayQuestion(),
+          // SizedBox(
+          //   height: 40,
+          // ),
+          // SingleEssayQuestion(),
+          // SizedBox(
+          //   height: 40,
+          // ),
+        ],
+      ),
     );
   }
 }

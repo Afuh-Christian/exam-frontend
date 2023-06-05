@@ -7,13 +7,14 @@ class UserFace extends StatelessWidget {
     required this.image,
     required this.right,
     required this.top,
+    required this.left,
     required this.bottom,
     required this.raduis,
     required this.imagewidth,
     required this.imageHeight,
   });
 
-  final double right, top, bottom, raduis, imagewidth, imageHeight;
+  final double right, left, top, bottom, raduis, imagewidth, imageHeight;
   final String image;
 
   @override

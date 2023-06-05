@@ -19,6 +19,7 @@ var appBar = AppBar(
         top: 10,
         bottom: 10,
         right: 20,
+        left:0,
         raduis: 3000.0,
       )
     ]);
