@@ -23,7 +23,7 @@ class _EssayChoiceState extends State<EssayQuestionList> {
                  number = !number;
               });
             print(number);
-          }),SizedBox(height: 40,),
+          }), SizedBox(height: 40,),
           SingleEssayQuestion(
             number: number ,
             onclick: () {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import '../../../../Global_Components/Nav_Components/DropdowmAnswerButtons.dart';
 import '../../../../Global_Components/Nav_Components/Nav_avatar.dart';
@@ -75,11 +76,10 @@ class _SingleEssayQuestionState extends State<SingleEssayQuestion>
         children: [
           GestureDetector(
             onTap: () {
-             
               setState(() {
                 if (showQuestionView == widget.number) {
                   showQuestionView = !showQuestionView;
-                   widget.onclick();
+                  widget.onclick();
                 }
                 // if (showQuestionView) {
                 //   animationControllerQuestionView.forward();
@@ -96,7 +96,6 @@ class _SingleEssayQuestionState extends State<SingleEssayQuestion>
                   width: 10,
                 ),
                 Text("What is a wave ..... "),
-           
               ],
             ),
           ),
@@ -353,6 +352,15 @@ class SingleAnswer extends StatefulWidget {
 }
 
 class _SingleAnswerState extends State<SingleAnswer> {
+  int incMaxLines = 1;
+  String commentInputValue = "";
+
+  // @override
+  // void didUpdateWidget(covariant oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   if (commentInputValue.length < 30) incMaxLines = 1;
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -363,12 +371,12 @@ class _SingleAnswerState extends State<SingleAnswer> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 "35 Votes",
                 style: TextStyle(fontSize: 11),
               ),
               SizedBox(
-                child: Row(children: [
+                child: Row(children: const [
                   Icon(
                     Icons.horizontal_rule,
                     size: 15,
@@ -424,17 +432,17 @@ class _SingleAnswerState extends State<SingleAnswer> {
                           color: Color.fromARGB(255, 172, 172, 172),
                           fontSize: 10),
                     ),
-                    SizedBox(width:10),
-                       UserFace(
-        image: "images/nouser.png",
-        imageHeight: 20,
-        imagewidth: 20,
-        top: 10,
-        bottom: 10,
-        right: 0,
-        left: 0,
-        raduis: 3000.0,
-      )
+                    SizedBox(width: 10),
+                    UserFace(
+                      image: "images/nouser.png",
+                      imageHeight: 20,
+                      imagewidth: 20,
+                      top: 10,
+                      bottom: 10,
+                      right: 0,
+                      left: 0,
+                      raduis: 3000.0,
+                    )
                   ],
                 ),
               )
@@ -445,18 +453,235 @@ class _SingleAnswerState extends State<SingleAnswer> {
     );
   }
 
-  void ShowCommentSection() => showDialog(
-        context: context,
-        builder: (BuildContext context) => StatefulBuilder(
-          builder: (BuildContext context, setState) {
-            return Dialog(
-              child: Container(
+  void setMaxLines(String value) {
+    if (value.length > 33 && incMaxLines < 9) {
+      commentInputValue = value;
+      print("object");
+      incMaxLines += 1;
+    } else if (value.length < 33) {
+      incMaxLines = 1;
+    }
+  }
+
+  void ShowCommentSection() {
+    
+    // Reset maxLines .........
+    incMaxLines = 1;
+
+
+
+    
+    int i = 0;
+    var arrayWords = [];
+    for (i < 0; i < 200; i++) {
+      arrayWords.add("this is me at home ....");
+    }
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => StatefulBuilder(
+        builder: (BuildContext context, setState) {
+          return Dialog(
+            child: Container(
                 width: double.infinity,
                 height: double.infinity,
-                color: Colors.blue,
-              ),
-            );
-          },
-        ),
-      );
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Expanded(
+                            child:  Padding(
+                              padding: const EdgeInsets.only(top: 8 , ),
+                              child: Text(
+                                "What is a wave ... ",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.only(top: 5, bottom: 10),
+                                child: Icon(
+                                  Icons.close,
+                                  size: 30,
+                                ),
+                              )),
+                        ],
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 0, top: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "35 Votes",
+                                  style: TextStyle(fontSize: 11),
+                                ),
+                                SizedBox(
+                                  child: Row(children: const [
+                                    Icon(
+                                      Icons.horizontal_rule,
+                                      size: 15,
+                                      color: Colors.red,
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text("Vote",
+                                        style: TextStyle(fontSize: 11)),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Icon(
+                                      Icons.add,
+                                      size: 15,
+                                      color: Colors.blue,
+                                    )
+                                  ]),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Text(
+                                "A wave is a electromagnetic blah blah blah" , style:TextStyle(fontSize: 13)),
+                            const SizedBox(
+                              height: 0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                SizedBox(
+                                  child: Row(
+                                    children: const [
+                                      Text(
+                                        "Ans by : ",
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 172, 172, 172),
+                                            fontSize: 10),
+                                      ),
+                                      Text(
+                                        "Afuh Christian",
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 172, 172, 172),
+                                            fontSize: 10),
+                                      ),
+                                      SizedBox(width: 10),
+                                      UserFace(
+                                        image: "images/nouser.png",
+                                        imageHeight: 20,
+                                        imagewidth: 20,
+                                        top: 10,
+                                        bottom: 10,
+                                        right: 0,
+                                        left: 0,
+                                        raduis: 3000.0,
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+
+                   
+                      // Expanded 
+                      Expanded(child: ListView.builder(
+                        itemCount: 200,
+                        itemBuilder: (context , item) => const ListTile(
+                          minLeadingWidth: 10,
+                          minVerticalPadding: 10,
+                        leading:  UserFace(
+                                        image: "images/nouser.png",
+                                        imageHeight: 20,
+                                        imagewidth: 20,
+                                        top: 10,
+                                        bottom: 10,
+                                        right: 0,
+                                        left: 0,
+                                        raduis: 3000.0,
+                                      ) ,
+                        title: Text("Afuh Christian" , style: TextStyle(fontSize: 10 , height: 3),),
+                        subtitle: Text(
+                          "I love everything about what you  just said  about what a force is but there are some short commings in your models ...."
+                          , style: TextStyle(fontSize: 10),
+                          ),
+                      ))),
+
+
+
+
+                      // Input text .....
+
+                      Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 5,
+                                  bottom: 5,
+                                ),
+                                child: TextField(
+                                  onChanged: (value) {
+                                    setState(() {
+                                      setMaxLines(value);
+                                    });
+                                  },
+                                  maxLines: incMaxLines,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide.none),
+                                    filled: true,
+                                    fillColor:
+                                        Color.fromARGB(255, 227, 227, 227),
+                                    hintText: "Add Comment",
+                                    hintStyle: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 155, 155, 155)),
+                                    // suffixIcon: Icon(Icons.send)
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Icon(
+                            Icons.send,
+                            fill: 1.0,
+                            color: Color.fromARGB(255, 115, 115, 115),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                )),
+          );
+        },
+      ),
+    );
+  }
 }
