@@ -454,23 +454,14 @@ class _SingleAnswerState extends State<SingleAnswer> {
   }
 
   void setMaxLines(String value) {
-    if (value.length > 33 && incMaxLines < 9) {
-      commentInputValue = value;
-      print("object");
-      incMaxLines += 1;
-    } else if (value.length < 33) {
-      incMaxLines = 1;
-    }
+    int maxLineCalculate = (1 + (value.length / 40).floor());
+    incMaxLines = maxLineCalculate > 8 ? 8 : maxLineCalculate;
   }
 
   void ShowCommentSection() {
-    
     // Reset maxLines .........
     incMaxLines = 1;
 
-
-
-    
     int i = 0;
     var arrayWords = [];
     for (i < 0; i < 200; i++) {
@@ -494,8 +485,10 @@ class _SingleAnswerState extends State<SingleAnswer> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Expanded(
-                            child:  Padding(
-                              padding: const EdgeInsets.only(top: 8 , ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                top: 8,
+                              ),
                               child: Text(
                                 "What is a wave ... ",
                                 style: TextStyle(
@@ -558,7 +551,8 @@ class _SingleAnswerState extends State<SingleAnswer> {
                               height: 10,
                             ),
                             const Text(
-                                "A wave is a electromagnetic blah blah blah" , style:TextStyle(fontSize: 13)),
+                                "A wave is a electromagnetic blah blah blah",
+                                style: TextStyle(fontSize: 13)),
                             const SizedBox(
                               height: 0,
                             ),
@@ -602,32 +596,43 @@ class _SingleAnswerState extends State<SingleAnswer> {
                         ),
                       ),
 
-                   
-                      // Expanded 
-                      Expanded(child: ListView.builder(
-                        itemCount: 200,
-                        itemBuilder: (context , item) => const ListTile(
-                          minLeadingWidth: 10,
-                          minVerticalPadding: 10,
-                        leading:  UserFace(
-                                        image: "images/nouser.png",
-                                        imageHeight: 20,
-                                        imagewidth: 20,
-                                        top: 10,
-                                        bottom: 10,
-                                        right: 0,
-                                        left: 0,
-                                        raduis: 3000.0,
-                                      ) ,
-                        title: Text("Afuh Christian" , style: TextStyle(fontSize: 10 , height: 3),),
-                        subtitle: Text(
-                          "I love everything about what you  just said  about what a force is but there are some short commings in your models ...."
-                          , style: TextStyle(fontSize: 10),
-                          ),
-                      ))),
-
-
-
+                      // Expanded
+                      Expanded(
+                          child: ListView.builder(
+                              itemCount: 200,
+                              itemBuilder: (context, item) => const ListTile(
+                                    minLeadingWidth: 10,
+                                    minVerticalPadding: 10,
+                                    leading: UserFace(
+                                      image: "images/nouser.png",
+                                      imageHeight: 20,
+                                      imagewidth: 20,
+                                      top: 10,
+                                      bottom: 10,
+                                      right: 0,
+                                      left: 0,
+                                      raduis: 3000.0,
+                                    ),
+                                    title: Text(
+                                      "Afuh Christian",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 10,
+                                          height: 3,
+                                   
+                                          color:
+                                              Color.fromARGB(255, 16, 16, 16)),
+                                    ),
+                                    subtitle: Text(
+                                      "I love everything about what you  just said  about what a force is but there are some short commings in your models ....",
+                                      style: TextStyle(
+                                        height: 1.7,
+                                          fontSize: 12,
+                                     
+                                          color:
+                                              Color.fromARGB(255, 29, 29, 29)),
+                                    ),
+                                  ))),
 
                       // Input text .....
 
@@ -651,8 +656,12 @@ class _SingleAnswerState extends State<SingleAnswer> {
                                     fontSize: 12,
                                   ),
                                   decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                                     border: OutlineInputBorder(
-                                        borderSide: BorderSide.none),
+                                        borderSide: BorderSide.none, 
+                                        
+                                        ),
+                                    isDense: true,
                                     filled: true,
                                     fillColor:
                                         Color.fromARGB(255, 227, 227, 227),

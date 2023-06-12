@@ -38,34 +38,33 @@ class _PopExamMenuState extends State<PopExamMenu> {
     return ElevatedButton(
       onPressed: () => showPopUp(context),
       style: const ButtonStyle(
+        //
+        visualDensity: VisualDensity(vertical: 2.0),
+        padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 10)),
           backgroundColor: MaterialStatePropertyAll(Colors.white)),
-      child: Padding(
-        padding:
-            const EdgeInsets.only(top: 16.0, bottom: 16.0, left: 10, right: 10),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              constraints: const BoxConstraints(maxWidth: 300),
-              child: Text(
-                widget.provider.choosenExamname,
-                // widget.ChoosenValue ,
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 125, 125, 125),
-                  fontSize: 15,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+          //
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            constraints: BoxConstraints(maxWidth: (MediaQuery.of(context).size.width - 100.00) ),
+            child: Text(
+              widget.provider.choosenExamname,
+              // widget.ChoosenValue ,
+              style: const TextStyle(
+  color: Color.fromARGB(255, 74, 74, 74),                fontSize: 15,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-            const SizedBox(width: 16),
-            const Icon(
-              Icons.arrow_drop_down,
-              color: Colors.black,
-            )
-          ],
-        ),
+          ),
+          const SizedBox(width: 16),
+          const Icon(
+            Icons.arrow_drop_down,
+            color: Colors.black,
+          )
+        ],
       ),
     );
   }

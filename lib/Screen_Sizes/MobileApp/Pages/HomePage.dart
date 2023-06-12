@@ -114,29 +114,25 @@ class _MainContainerState extends State<MainContainer> {
                   children: [
                     Column(
                       children: [
+
+                       
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
               // Exam list ...... 
                        PopExamMenu(
                                 provider: widget.provider,
                               ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                      
               // Subjects list ........
                         PopSubjectMenu(provider: widget.provider,)
                       ],
                     ),
-                   const  SizedBox(
-                      height: 20,
-                    )
+                 
                     
-                    ,PopTopicMenu(provider: widget.provider,),
+                    PopTopicMenu(provider: widget.provider,),
         
-                    const  SizedBox(
-                      height: 20,
-                    )
+                    
                   ],
                 ),
               ),
@@ -220,6 +216,7 @@ class _MainContainerState extends State<MainContainer> {
                                     });
                                   },
                                   style: ButtonStyle(
+
                                     backgroundColor: isMultipleChoice
                                         ? const MaterialStatePropertyAll<Color>(
                                             Color.fromARGB(255, 114, 116, 114))
