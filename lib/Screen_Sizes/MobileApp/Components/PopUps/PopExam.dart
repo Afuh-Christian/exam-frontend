@@ -53,7 +53,9 @@ class _PopExamMenuState extends State<PopExamMenu> {
               widget.provider.choosenExamname,
               // widget.ChoosenValue ,
               style: const TextStyle(
-  color: Color.fromARGB(255, 74, 74, 74),                fontSize: 15,
+  color: Color.fromARGB(255, 74, 74, 74),           
+       fontSize: 15,
+       letterSpacing: 2,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

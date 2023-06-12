@@ -50,7 +50,7 @@ class _PopSubjectMenuState extends State<PopSubjectMenu> {
               widget.provider.choosenSubject,
               // widget.ChoosenValue ,
               style: const TextStyle(
-  color: Color.fromARGB(255, 74, 74, 74),   
+  color: Color.fromARGB(255, 74, 74, 74),     letterSpacing: 2,
                fontSize: 15,
               ),
               maxLines: 1,

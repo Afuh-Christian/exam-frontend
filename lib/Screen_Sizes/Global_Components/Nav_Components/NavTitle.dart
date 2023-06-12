@@ -24,10 +24,11 @@ class _AppTitleWigetState extends State<AppTitleWiget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: widget.width,
+      // width: widget.width,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             // Icon(Icons.book, color: Colors.black,size: 20),
             SvgPicture.asset(
@@ -36,14 +37,18 @@ class _AppTitleWigetState extends State<AppTitleWiget> {
               height: widget.bookheight,
             ),
 
+            SizedBox(width: 10,),
+
             Text(
               "Exam",
               style: TextStyle(
                 color: const Color.fromARGB(255, 63, 62, 62),
+                letterSpacing: 5,
                 fontSize: widget.titlefont,
                 fontWeight: FontWeight.w500,
               ),
             ),
+             SizedBox(width: 10,),
             SvgPicture.asset(
               "images/bookb.svg",
               width: widget.bookwidth,
