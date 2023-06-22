@@ -1,3 +1,4 @@
+import 'package:exam_front_end/Provider/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../Dummy_data.dart';
@@ -34,12 +35,13 @@ class _PopSubjectMenuState extends State<PopSubjectMenu> {
  
   @override
   Widget build(BuildContext context) {
+    colorTheme theme = widget.provider.theme();
     return ElevatedButton(
       onPressed: () => showPopUp(context),
-      style: const ButtonStyle(
+      style:  ButtonStyle(
           visualDensity: VisualDensity(vertical: 2.0),
         padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 10)),
-          backgroundColor: MaterialStatePropertyAll(Colors.white)),
+          backgroundColor: MaterialStatePropertyAll(theme.background_primary)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -49,8 +51,8 @@ class _PopSubjectMenuState extends State<PopSubjectMenu> {
             child: Text(
               widget.provider.choosenSubject,
               // widget.ChoosenValue ,
-              style: const TextStyle(
-  color: Color.fromARGB(255, 74, 74, 74),     letterSpacing: 2,
+              style:  TextStyle(
+  color: theme.text_primary,     letterSpacing: 2,
                fontSize: 15,
               ),
               maxLines: 1,
@@ -58,9 +60,9 @@ class _PopSubjectMenuState extends State<PopSubjectMenu> {
             ),
           ),
           const SizedBox(width: 16),
-          const Icon(
+           Icon(
             Icons.arrow_drop_down,
-            color: Colors.black,
+            color: theme.icon_primary,
           )
         ],
       ),
@@ -72,10 +74,12 @@ class _PopSubjectMenuState extends State<PopSubjectMenu> {
   // }
 
   Future<void> showPopUp(BuildContext context) {
+    colorTheme theme = widget.provider.theme();
     return showDialog(
         context: context,
         builder: (context) => StatefulBuilder(builder: (context, setState) {
               return Dialog(
+                backgroundColor: theme.background_primary,
                 child: SizedBox(
                   height: double.infinity,
                   child: Column(children: [
@@ -90,16 +94,16 @@ class _PopSubjectMenuState extends State<PopSubjectMenu> {
                               child: Text(
                                 widget.provider.choosenSubject,
                                 // widget.ChoosenValue + " " + searchValue,
-                                style: const TextStyle(fontSize: 17),
+                                style:  TextStyle(fontSize: 17, color: theme.text_primary),
                               )),
                         ),
                         GestureDetector(
                           onTap: () => Navigator.of(context).pop(),
-                          child: const Padding(
+                          child:  Padding(
                             padding: EdgeInsets.only(top: 8.0, right: 8.0),
                             child: Icon(
                               Icons.close,
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: theme.icon_primary,
                               size: 25,
                             ),
                           ),
@@ -114,34 +118,33 @@ class _PopSubjectMenuState extends State<PopSubjectMenu> {
                         left: 8,
                         right: 8,
                       ),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: TextField(
-                          // controller: TextEditingController(text: searchValue),
-                          onChanged: (value) {
-                            setState(() {
-                              widget.provider.searchSubjectList(value);
-                              // widget.searchFunction(value);
-                            });
-                          },
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0)),
-                          decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color.fromARGB(255, 227, 227, 227),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide.none),
-                              hintText: "Search Exam",
-                              hintStyle: const TextStyle(
-                                  color: Color.fromARGB(255, 155, 155, 155)),
-                              suffixIcon: GestureDetector(
-                                  onTap: () {},
-                                  child: const Icon(Icons.search)),
-                              suffixIconColor:
-                                  const Color.fromARGB(255, 55, 55, 55)),
-                        ),
+                      child: TextField(
+                        // controller: TextEditingController(text: searchValue),
+                        onChanged: (value) {
+                          setState(() {
+                            widget.provider.searchSubjectList(value);
+                            // widget.searchFunction(value);
+                          });
+                        },
+                        style:  TextStyle(
+   color: theme.text_primary
+                               ),
+                        decoration: InputDecoration(
+                          isDense: true,
+                            filled: true,
+                            fillColor: theme.search_bacground_primary,
+                            contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none),
+                            hintText: "Search Exam",
+                            hintStyle:  TextStyle(
+                                color: theme.text_primary),
+                            suffixIcon: GestureDetector(
+                                onTap: () {},
+                                child: const Icon(Icons.search)),
+                            suffixIconColor:
+                                const Color.fromARGB(255, 55, 55, 55)),
                       ),
                     ),
                     const SizedBox(
@@ -163,7 +166,7 @@ class _PopSubjectMenuState extends State<PopSubjectMenu> {
                                   });
                                   Navigator.of(context).pop();
                                 },
-                                title: Text(widget.provider.getSubjectList()[index].name),
+                                title: Text(widget.provider.getSubjectList()[index].name , style: TextStyle(color: theme.text_primary),),
                               );
                             })),
                   ]),

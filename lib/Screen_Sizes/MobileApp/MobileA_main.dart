@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../Provider/Provider.dart';
 import 'Components/Navbar.dart';
 import 'Pages/HomePage.dart';
 
@@ -7,7 +9,9 @@ class MobileA_App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const NavBarMobile(
+     final provider = Provider.of<ExamProvider>(context);
+    return  NavBarMobile(
+      provider: provider,
       body:  HomePage(),
     );
   }

@@ -1,30 +1,36 @@
+import 'package:exam_front_end/Provider/Provider.dart';
+import 'package:exam_front_end/Provider/Theme/theme.dart';
 import 'package:flutter/material.dart';
 import '../../MobileApp/Components/Navbar.dart';
 
 class NavDrawer extends StatefulWidget {
-  const NavDrawer({
-    super.key,
-    required this.right,
-    required this.top,
-    required this.bottom,
-    required this.left,
-    required this.image,
-    required this.imagewidth,
-    required this.imageheight,
-  });
+  const NavDrawer(
+      {super.key,
+      required this.right,
+      required this.top,
+      required this.bottom,
+      required this.left,
+      required this.image,
+      required this.imagewidth,
+      required this.imageheight,
+      required this.provider});
 
   final double imagewidth, imageheight, top, bottom, left, right;
   final String image;
+  final ExamProvider provider;
 
   @override
   State<NavDrawer> createState() => _NavDrawerState();
 }
 
 class _NavDrawerState extends State<NavDrawer> {
-  bool isLightMode = true;
   @override
   Widget build(BuildContext context) {
+    bool isLightmode = widget.provider.themeSet;
+    colorTheme appTheme = widget.provider.theme();
     return Drawer(
+      // backgroundColor: appTheme.drawerBackgroundColor,
+      backgroundColor: appTheme.background_primary,
       child: Column(children: [
         DrawerHeader(
           child: Padding(
@@ -47,36 +53,30 @@ class _NavDrawerState extends State<NavDrawer> {
           child: ListView.builder(
               itemCount: navitems.length,
               itemBuilder: (context, index) {
-                if (navitems[index]["titlename"] == "Light mode") {
-                  return isLightMode
-                      ? ListTile(
-                          onTap: () {
-                            setState(() {
-                              isLightMode = !isLightMode;
-                            });
-                          },
-                          textColor: const Color.fromARGB(255, 14, 14, 14),
-                          hoverColor: const Color.fromARGB(255, 136, 135, 135),
-                          leading: navitems[index]["icon"],
-                          title: Text(navitems[index]["titlename"]),
-                        )
-                      : ListTile(
-                          onTap: () {
-                            setState(() {
-                              isLightMode = !isLightMode;
-                            });
-                          },
-                          textColor: const Color.fromARGB(255, 14, 14, 14),
-                          hoverColor: const Color.fromARGB(255, 136, 135, 135),
-                          leading: Icon(Icons.dark_mode),
-                          title: Text("Dark Mode"),
-                        );
+                if (navitems[index]["titlename"] == "mode") {
+                  return ListTile(
+                      onTap: () {
+                        setState(() {
+                          widget.provider.chooseTheme();
+                        });
+                      },
+                      textColor: appTheme.text_primary,
+                      // textColor: appTheme.drawerTextColor,
+                      hoverColor: appTheme.drawerTextHoverColor,
+                      leading: !isLightmode
+                          ?  Icon(Icons.sunny, color: appTheme.icon_secondary)
+                          :  Icon(Icons.dark_mode , size: 20, color: appTheme.icon_secondary ,),
+                      title: !isLightmode
+                          ? const Text("Light mode" , style: TextStyle(fontSize: 14),)
+                          : const Text("Dark Mode" , style: TextStyle(fontSize: 14), ) );
                 } else {
                   return ListTile(
-                    textColor: const Color.fromARGB(255, 14, 14, 14),
-                    hoverColor: const Color.fromARGB(255, 136, 135, 135),
+                      // textColor: appTheme.drawerTextColor,
+                       textColor: appTheme.text_primary,
+                      hoverColor: appTheme.drawerTextHoverColor,
+                      // iconColor: appTheme.drawerIconColor,
                     leading: navitems[index]["icon"],
-                    title: Text(navitems[index]["titlename"]),
+                    title: Text(navitems[index]["titlename"],style: TextStyle(fontSize: 14),),
                   );
                 }
               }),

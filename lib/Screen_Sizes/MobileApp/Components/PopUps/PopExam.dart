@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../../../../Dummy_data.dart';
 import '../../../../Provider/Provider.dart';
+import '../../../../Provider/Theme/theme.dart';
 
 class PopExamMenu extends StatefulWidget {
-  PopExamMenu(
-      {super.key,
-      required this.provider,
-      // required this.list,
-      // required this.ChoosenValue,
-      // required this.searchHint,
-      // required this.searchFunction,
-      // required this.chooseFunction,
-      // required this.searchValue
-      
-      
-      });
+  PopExamMenu({
+    super.key,
+    required this.provider,
+    // required this.list,
+    // required this.ChoosenValue,
+    // required this.searchHint,
+    // required this.searchFunction,
+    // required this.chooseFunction,
+    // required this.searchValue
+  });
 
   ExamProvider provider;
   // String searchHint;
@@ -31,40 +30,44 @@ class PopExamMenu extends StatefulWidget {
 }
 
 class _PopExamMenuState extends State<PopExamMenu> {
-
-
   @override
   Widget build(BuildContext context) {
+    colorTheme appTheme = widget.provider.theme();
     return ElevatedButton(
       onPressed: () => showPopUp(context),
-      style: const ButtonStyle(
-        //
-        visualDensity: VisualDensity(vertical: 2.0),
-        padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 10)),
-          backgroundColor: MaterialStatePropertyAll(Colors.white)),
+      style: ButtonStyle(
           //
+          visualDensity: VisualDensity(vertical: 2.0),
+          padding:
+              MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 10)),
+          // backgroundColor: MaterialStatePropertyAll(Colors.white)),
+          backgroundColor:
+              MaterialStatePropertyAll(appTheme.background_primary)),
+      //
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            constraints: BoxConstraints(maxWidth: (MediaQuery.of(context).size.width - 100.00) ),
+            constraints: BoxConstraints(
+                maxWidth: (MediaQuery.of(context).size.width - 100.00)),
             child: Text(
               widget.provider.choosenExamname,
               // widget.ChoosenValue ,
-              style: const TextStyle(
-  color: Color.fromARGB(255, 74, 74, 74),           
-       fontSize: 15,
-       letterSpacing: 2,
+              style: TextStyle(
+                // color: Color.fromARGB(255, 74, 74, 74),
+                color: appTheme.text_secondary,
+                fontSize: 15,
+                letterSpacing: 2,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
           ),
           const SizedBox(width: 16),
-          const Icon(
+          Icon(
             Icons.arrow_drop_down,
-            color: Colors.black,
+            color: appTheme.icon_primary,
           )
         ],
       ),
@@ -76,10 +79,12 @@ class _PopExamMenuState extends State<PopExamMenu> {
   }
 
   Future<void> showPopUp(BuildContext context) {
+    colorTheme appTheme = widget.provider.theme();
     return showDialog(
         context: context,
         builder: (context) => StatefulBuilder(builder: (context, setState) {
               return Dialog(
+                backgroundColor: appTheme.background_primary,
                 child: SizedBox(
                   height: double.infinity,
                   child: Column(children: [
@@ -94,16 +99,18 @@ class _PopExamMenuState extends State<PopExamMenu> {
                               child: Text(
                                 widget.provider.choosenExamname,
                                 // widget.ChoosenValue + " " + searchValue,
-                                style: const TextStyle(fontSize: 17),
+                                style:  TextStyle(fontSize: 17, 
+                                color: appTheme.text_primary
+                                ),
                               )),
                         ),
                         GestureDetector(
                           onTap: () => Navigator.of(context).pop(),
-                          child: const Padding(
-                            padding: EdgeInsets.only(top: 8.0, right: 8.0),
+                          child:  Padding(
+                            padding: const EdgeInsets.only(top: 8.0, right: 8.0),
                             child: Icon(
                               Icons.close,
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: appTheme.icon_primary,
                               size: 25,
                             ),
                           ),
@@ -118,34 +125,36 @@ class _PopExamMenuState extends State<PopExamMenu> {
                         left: 8,
                         right: 8,
                       ),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: TextField(
-                          // controller: TextEditingController(text: searchValue),
-                          onChanged: (value) {
-                            setState(() {
-                              widget.provider.searchExamList(value);
-
-                            });
-                          },
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0)),
-                          decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color.fromARGB(255, 227, 227, 227),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide.none),
-                              hintText: "Search Exam",
-                              hintStyle: const TextStyle(
-                                  color: Color.fromARGB(255, 155, 155, 155)),
-                              suffixIcon: GestureDetector(
-                                  onTap: () {},
-                                  child: const Icon(Icons.search)),
-                              suffixIconColor:
-                                  const Color.fromARGB(255, 55, 55, 55)),
-                        ),
+                      child: TextField(
+                        // controller: TextEditingController(text: searchValue),
+                        onChanged: (value) {
+                          setState(() {
+                            widget.provider.searchExamList(value);
+                          });
+                        },
+                        style:  TextStyle(
+                          fontSize: 13,
+                            color: appTheme.text_primary),
+                        decoration: InputDecoration(
+                          isDense: true,
+                            filled: true,
+                            contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                             
+                            fillColor: appTheme.search_bacground_primary,
+                            border: OutlineInputBorder(
+                                // borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide.none
+                                
+                                ),
+                            hintText: "Search Exam",
+                            hintStyle: TextStyle(
+                                color: appTheme.text_primary
+                                ),
+                            suffixIcon: GestureDetector(
+                                onTap: () {},
+                                child: const Icon(Icons.search)),
+                            suffixIconColor:
+                                const Color.fromARGB(255, 55, 55, 55)),
                       ),
                     ),
                     const SizedBox(
@@ -165,7 +174,10 @@ class _PopExamMenuState extends State<PopExamMenu> {
                                   });
                                   Navigator.of(context).pop();
                                 },
-                                title: Text(widget.provider.getExamList()[index].name),
+                                title: Text(
+                                  
+                                    widget.provider.getExamList()[index].name, style: TextStyle(color: appTheme.text_primary),),
+                                  
                               );
                             })),
                   ]),

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import '../../../../../Provider/Provider.dart';
 import '../../../../Global_Components/Nav_Components/DropdowmAnswerButtons.dart';
 import '../../../../Global_Components/Nav_Components/Nav_avatar.dart';
 
 class SingleEssayQuestion extends StatefulWidget {
-  SingleEssayQuestion({
-    super.key,
-    required this.onclick,
-    required this.number,
-  });
+  SingleEssayQuestion(
+      {super.key,
+      required this.onclick,
+      required this.number,
+      required this.provider
+      });
   bool number;
   void Function() onclick;
+  final ExamProvider provider;
 
   @override
   State<SingleEssayQuestion> createState() => _SingleEssayQuestionState();
@@ -68,6 +71,7 @@ class _SingleEssayQuestionState extends State<SingleEssayQuestion>
 
   @override
   Widget build(BuildContext context) {
+    var theme = widget.provider.theme();
     return Container(
       width: double.infinity,
       // height: 100,
@@ -91,11 +95,17 @@ class _SingleEssayQuestionState extends State<SingleEssayQuestion>
             },
             child: Row(
               children: [
-                const Text("1 . "),
+                Text(
+                  "1 . ",
+                  style: TextStyle(color: theme.text_primary),
+                ),
                 const SizedBox(
                   width: 10,
                 ),
-                Text("What is a wave ..... "),
+                Text(
+                  "What is a wave ..... ",
+                  style: TextStyle(color: theme.text_primary),
+                ),
               ],
             ),
           ),
@@ -109,9 +119,10 @@ class _SingleEssayQuestionState extends State<SingleEssayQuestion>
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     AnswerButtonWidget(
+                        provider: widget.provider,
                         title: "view answer",
                         icon: (Icons.arrow_drop_down),
-                        color: Colors.black,
+                        color: theme.text_primary!,
                         btnClicked: () {
                           // print("Button 1 clicked ");
                           setState(() {
@@ -136,16 +147,20 @@ class _SingleEssayQuestionState extends State<SingleEssayQuestion>
                   axisAlignment: 0,
                   child: Column(
                     children: [
-                      SingleAnswer(),
+                      SingleAnswer(
+                        provider: widget.provider,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           AnswerButtonWidget(
+                              provider: widget.provider,
                               title: "other answers",
                               icon: (Icons.arrow_drop_down),
-                              color: Colors.black,
+                              color: theme.text_primary!,
                               btnClicked: () {
-                                // print("Button 3 clicked ");
+                                // print("Button 3
+                                //clicked ");
                                 setState(() {
                                   showOtherAnswers = !showOtherAnswers;
                                 });
@@ -153,21 +168,31 @@ class _SingleEssayQuestionState extends State<SingleEssayQuestion>
                               size: 20,
                               padding: PaddingData(
                                   top: 4, bottom: 4, right: 8, left: 8)),
+
+                         
                         ],
                       ),
+                       SizedBox(
+                            height: 20,
+                        
+                          )
                     ],
                   ),
                 ),
-                OtherAnswersWidget(showOtherAnswers: showOtherAnswers),
+                OtherAnswersWidget(
+                    provider: widget.provider,
+                    showOtherAnswers: showOtherAnswers),
+                // SizedBox(height: 20,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: AnswerButtonWidget(
+                          provider: widget.provider,
                           title: "propose answer",
                           icon: (Icons.arrow_drop_down),
-                          color: Colors.black,
+                          color: theme.text_primary!,
                           btnClicked: () {
                             // print("Button 3 clicked ");
                             setState(() {
@@ -180,7 +205,9 @@ class _SingleEssayQuestionState extends State<SingleEssayQuestion>
                     ),
                   ],
                 ),
-                AnswerField(showAnswerField: showAnswerField),
+                AnswerField(
+                    provider: widget.provider,
+                    showAnswerField: showAnswerField),
               ],
             ),
           )
@@ -194,8 +221,10 @@ class OtherAnswersWidget extends StatefulWidget {
   OtherAnswersWidget({
     super.key,
     required this.showOtherAnswers,
+    required this.provider,
   });
   bool showOtherAnswers;
+  final ExamProvider provider;
 
   @override
   State<OtherAnswersWidget> createState() => _OtherAnswersWidgetState();
@@ -233,12 +262,24 @@ class _OtherAnswersWidgetState extends State<OtherAnswersWidget>
         padding: const EdgeInsets.only(bottom: 20),
         child: Column(
           children: [
-            SingleAnswer(),
-            SingleAnswer(),
-            SingleAnswer(),
-            SingleAnswer(),
-            SingleAnswer(),
-            SingleAnswer(),
+            SingleAnswer(
+              provider: widget.provider,
+            ),
+            SingleAnswer(
+              provider: widget.provider,
+            ),
+            SingleAnswer(
+              provider: widget.provider,
+            ),
+            SingleAnswer(
+              provider: widget.provider,
+            ),
+            SingleAnswer(
+              provider: widget.provider,
+            ),
+            SingleAnswer(
+              provider: widget.provider,
+            ),
           ],
         ),
       ),
@@ -250,9 +291,11 @@ class AnswerField extends StatefulWidget {
   AnswerField({
     super.key,
     required this.showAnswerField,
+    required this.provider,
   });
 
   bool showAnswerField;
+  final ExamProvider provider;
 
   @override
   State<AnswerField> createState() => _AnswerFieldState();
@@ -288,7 +331,7 @@ class _AnswerFieldState extends State<AnswerField>
     // } else {
     //   animationController.animateBack(0);
     // }
-
+    var theme = widget.provider.theme();
     return SizeTransition(
       sizeFactor: animation,
       axis: Axis.vertical,
@@ -303,11 +346,10 @@ class _AnswerFieldState extends State<AnswerField>
                 maxLines: 10,
                 // controller: TextEditingController(text: searchValue),
                 onChanged: (value) {},
-                style: const TextStyle(
-                    fontSize: 12, color: Color.fromARGB(255, 0, 0, 0)),
+                style: TextStyle(fontSize: 12, color: theme.text_primary),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color.fromARGB(255, 227, 227, 227),
+                  fillColor: theme.search_bacground_primary,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                       borderSide: BorderSide.none),
@@ -325,14 +367,14 @@ class _AnswerFieldState extends State<AnswerField>
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ElevatedButton(
-                  style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                          Color.fromARGB(255, 101, 101, 101)),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll(theme.btn_primary),
                       padding: MaterialStatePropertyAll(EdgeInsets.all(0.0))),
                   onPressed: () {},
                   child: Text(
                     "Submit",
-                    style: TextStyle(fontSize: 10),
+                    style: TextStyle(fontSize: 10, color: theme.text_quatenary),
                   )),
             ],
           )
@@ -343,9 +385,9 @@ class _AnswerFieldState extends State<AnswerField>
 }
 
 class SingleAnswer extends StatefulWidget {
-  const SingleAnswer({
-    super.key,
-  });
+  const SingleAnswer({super.key, required this.provider});
+
+  final ExamProvider provider;
 
   @override
   State<SingleAnswer> createState() => _SingleAnswerState();
@@ -363,6 +405,7 @@ class _SingleAnswerState extends State<SingleAnswer> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = widget.provider.theme();
     return Padding(
       padding: const EdgeInsets.only(bottom: 20, top: 30),
       child: Column(
@@ -371,12 +414,12 @@ class _SingleAnswerState extends State<SingleAnswer> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 "35 Votes",
-                style: TextStyle(fontSize: 11),
+                style: TextStyle(fontSize: 11, color: theme.text_secondary),
               ),
               SizedBox(
-                child: Row(children: const [
+                child: Row(children: [
                   Icon(
                     Icons.horizontal_rule,
                     size: 15,
@@ -385,7 +428,9 @@ class _SingleAnswerState extends State<SingleAnswer> {
                   SizedBox(
                     width: 10,
                   ),
-                  Text("Vote", style: TextStyle(fontSize: 11)),
+                  Text("Vote",
+                      style:
+                          TextStyle(fontSize: 11, color: theme.text_secondary)),
                   SizedBox(
                     width: 10,
                   ),
@@ -401,7 +446,8 @@ class _SingleAnswerState extends State<SingleAnswer> {
           SizedBox(
             height: 20,
           ),
-          Text("A wave is a electromagnetic blah blah blah"),
+          Text("A wave is a electromagnetic blah blah blah",
+              style: TextStyle(color: theme.text_secondary)),
           SizedBox(
             height: 20,
           ),
@@ -409,9 +455,10 @@ class _SingleAnswerState extends State<SingleAnswer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               AnswerButtonWidget(
+                  provider: widget.provider,
                   title: "Comments",
                   icon: (Icons.comment),
-                  color: Color.fromARGB(255, 133, 133, 133),
+                  color: theme.text_tetiary!,
                   btnClicked: () {
                     return ShowCommentSection();
                   },
@@ -459,6 +506,7 @@ class _SingleAnswerState extends State<SingleAnswer> {
   }
 
   void ShowCommentSection() {
+    var theme = widget.provider.theme();
     // Reset maxLines .........
     incMaxLines = 1;
 
@@ -472,10 +520,11 @@ class _SingleAnswerState extends State<SingleAnswer> {
       builder: (BuildContext context) => StatefulBuilder(
         builder: (BuildContext context, setState) {
           return Dialog(
+            backgroundColor: theme.background_primary,
             child: Container(
+                color: theme.background_primary,
                 width: double.infinity,
                 height: double.infinity,
-                color: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8),
                   child: Column(
@@ -484,7 +533,7 @@ class _SingleAnswerState extends State<SingleAnswer> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Expanded(
+                          Expanded(
                             child: Padding(
                               padding: const EdgeInsets.only(
                                 top: 8,
@@ -492,8 +541,7 @@ class _SingleAnswerState extends State<SingleAnswer> {
                               child: Text(
                                 "What is a wave ... ",
                                 style: TextStyle(
-                                  fontSize: 15,
-                                ),
+                                    fontSize: 15, color: theme.text_secondary),
                               ),
                             ),
                           ),
@@ -501,12 +549,10 @@ class _SingleAnswerState extends State<SingleAnswer> {
                               onTap: () {
                                 Navigator.pop(context);
                               },
-                              child: const Padding(
+                              child: Padding(
                                 padding: EdgeInsets.only(top: 5, bottom: 10),
-                                child: Icon(
-                                  Icons.close,
-                                  size: 30,
-                                ),
+                                child: Icon(Icons.close,
+                                    size: 30, color: theme.icon_primary),
                               )),
                         ],
                       ),
@@ -519,12 +565,14 @@ class _SingleAnswerState extends State<SingleAnswer> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
+                                Text(
                                   "35 Votes",
-                                  style: TextStyle(fontSize: 11),
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: theme.text_secondary),
                                 ),
                                 SizedBox(
-                                  child: Row(children: const [
+                                  child: Row(children: [
                                     Icon(
                                       Icons.horizontal_rule,
                                       size: 15,
@@ -534,7 +582,9 @@ class _SingleAnswerState extends State<SingleAnswer> {
                                       width: 10,
                                     ),
                                     Text("Vote",
-                                        style: TextStyle(fontSize: 11)),
+                                        style: TextStyle(
+                                            fontSize: 11,
+                                            color: theme.text_secondary)),
                                     SizedBox(
                                       width: 10,
                                     ),
@@ -550,9 +600,9 @@ class _SingleAnswerState extends State<SingleAnswer> {
                             const SizedBox(
                               height: 10,
                             ),
-                            const Text(
-                                "A wave is a electromagnetic blah blah blah",
-                                style: TextStyle(fontSize: 13)),
+                            Text("A wave is a electromagnetic blah blah blah",
+                                style: TextStyle(
+                                    fontSize: 13, color: theme.text_secondary)),
                             const SizedBox(
                               height: 0,
                             ),
@@ -600,10 +650,10 @@ class _SingleAnswerState extends State<SingleAnswer> {
                       Expanded(
                           child: ListView.builder(
                               itemCount: 200,
-                              itemBuilder: (context, item) => const ListTile(
+                              itemBuilder: (context, item) => ListTile(
                                     minLeadingWidth: 10,
                                     minVerticalPadding: 10,
-                                    leading: UserFace(
+                                    leading: const UserFace(
                                       image: "images/nouser.png",
                                       imageHeight: 20,
                                       imagewidth: 20,
@@ -619,18 +669,14 @@ class _SingleAnswerState extends State<SingleAnswer> {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 10,
                                           height: 3,
-                                   
-                                          color:
-                                              Color.fromARGB(255, 16, 16, 16)),
+                                          color: theme.text_primary),
                                     ),
                                     subtitle: Text(
                                       "I love everything about what you  just said  about what a force is but there are some short commings in your models ....",
                                       style: TextStyle(
-                                        height: 1.7,
+                                          height: 1.7,
                                           fontSize: 12,
-                                     
-                                          color:
-                                              Color.fromARGB(255, 29, 29, 29)),
+                                          color: theme.text_secondary),
                                     ),
                                   ))),
 
@@ -652,19 +698,17 @@ class _SingleAnswerState extends State<SingleAnswer> {
                                     });
                                   },
                                   maxLines: incMaxLines,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                  decoration: const InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                                  style: TextStyle(
+                                      fontSize: 12, color: theme.text_primary),
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 10.0, horizontal: 10.0),
                                     border: OutlineInputBorder(
-                                        borderSide: BorderSide.none, 
-                                        
-                                        ),
+                                      borderSide: BorderSide.none,
+                                    ),
                                     isDense: true,
                                     filled: true,
-                                    fillColor:
-                                        Color.fromARGB(255, 227, 227, 227),
+                                    fillColor: theme.search_bacground_primary,
                                     hintText: "Add Comment",
                                     hintStyle: TextStyle(
                                         color:
@@ -678,10 +722,10 @@ class _SingleAnswerState extends State<SingleAnswer> {
                           const SizedBox(
                             width: 10,
                           ),
-                          const Icon(
+                          Icon(
                             Icons.send,
                             fill: 1.0,
-                            color: Color.fromARGB(255, 115, 115, 115),
+                            color: theme.btn_primary,
                           )
                         ],
                       ),

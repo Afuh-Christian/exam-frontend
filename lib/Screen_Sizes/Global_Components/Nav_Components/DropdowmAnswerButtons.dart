@@ -1,6 +1,6 @@
-
-
 import 'package:flutter/material.dart';
+
+import '../../../Provider/Provider.dart';
 
 class PaddingData {
   PaddingData({
@@ -17,13 +17,16 @@ class PaddingData {
 
 class AnswerButtonWidget extends StatefulWidget {
   AnswerButtonWidget(
-      {super.key,
+      {super.key, required this.provider,
       required this.btnClicked,
       required this.icon,
       required this.title,
       required this.color,
       required this.size,
-      required this.padding});
+      required this.padding,
+     
+      
+      });
 
   Function() btnClicked;
   IconData icon;
@@ -31,6 +34,7 @@ class AnswerButtonWidget extends StatefulWidget {
   Color color;
   double size;
   PaddingData padding;
+  final ExamProvider provider;
 
   @override
   State<AnswerButtonWidget> createState() => _AnswerButtonWidgetState();
@@ -39,15 +43,16 @@ class AnswerButtonWidget extends StatefulWidget {
 class _AnswerButtonWidgetState extends State<AnswerButtonWidget> {
   @override
   Widget build(BuildContext context) {
+    var theme = widget.provider.theme();
     return GestureDetector(
       onTap: widget.btnClicked,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: theme.background_primary,
           borderRadius: BorderRadius.circular(5),
-          boxShadow: const [
+          boxShadow:  [
             BoxShadow(
-                color: Color.fromARGB(255, 210, 210, 210),
+                color: theme.boxShadow_primary!,
                 offset: Offset(5.0, 5.0),
                 blurRadius: 10.0,
                 spreadRadius: 0.0)

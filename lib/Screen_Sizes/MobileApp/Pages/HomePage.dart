@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:exam_front_end/Provider/Theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -97,42 +98,38 @@ class _MainContainerState extends State<MainContainer> {
   Widget build(BuildContext context) {
     // final provider = widget.Provider.of<ExamProvider>(context, listen: false);
 
-
+    colorTheme theme = widget.provider.theme();
     var value =
         "this is what i do durring the holidays and we see each od adsfa asdf asdfa durring the holidays and we see each od adsfa asdf asdfa adsff adfad ther as friends";
     return Container(
+      color: widget.provider.theme().background_secondary,
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(right:15 , left: 15),
+          padding: const EdgeInsets.only(right: 15, left: 15),
           child: Column(
             children: [
               Container(
-                // containing the Search boxes .......
-        
-                //  color: Colors.red,
                 child: Column(
                   children: [
                     Column(
                       children: [
-
-                       
                         const SizedBox(
                           height: 10,
                         ),
-              // Exam list ...... 
-                       PopExamMenu(
-                                provider: widget.provider,
-                              ),
-                      
-              // Subjects list ........
-                        PopSubjectMenu(provider: widget.provider,)
+                        // Exam list ......
+                        PopExamMenu(
+                          provider: widget.provider,
+                        ),
+
+                        // Subjects list ........
+                        PopSubjectMenu(
+                          provider: widget.provider,
+                        )
                       ],
                     ),
-                 
-                    
-                    PopTopicMenu(provider: widget.provider,),
-        
-                    
+                    PopTopicMenu(
+                      provider: widget.provider,
+                    ),
                   ],
                 ),
               ),
@@ -151,17 +148,17 @@ class _MainContainerState extends State<MainContainer> {
                           },
                           style: ButtonStyle(
                             backgroundColor: isSummary
-                                ? const MaterialStatePropertyAll<Color>(
-                                    Color.fromARGB(255, 114, 116, 114))
-                                : const MaterialStatePropertyAll<Color>(
-                                    Color.fromARGB(255, 255, 255, 255)),
+                                ? MaterialStatePropertyAll<Color?>(
+                                    theme.btn_primary)
+                                : MaterialStatePropertyAll<Color?>(
+                                    theme.background_primary),
                           ),
                           child: Text(
                             "Summary",
                             style: TextStyle(
                                 color: isSummary
-                                    ? Colors.white
-                                    : Color.fromARGB(255, 114, 116, 114),
+                                    ? theme.text_quatenary
+                                    : theme.text_tetiary,
                                 fontSize: 10,
                                 wordSpacing: 2,
                                 letterSpacing: 3),
@@ -176,17 +173,17 @@ class _MainContainerState extends State<MainContainer> {
                           },
                           style: ButtonStyle(
                             backgroundColor: !isSummary
-                                ? const MaterialStatePropertyAll<Color>(
-                                    Color.fromARGB(255, 114, 116, 114))
-                                : const MaterialStatePropertyAll<Color>(
-                                    Color.fromARGB(255, 255, 255, 255)),
+                                ? MaterialStatePropertyAll<Color?>(
+                                    theme.btn_primary)
+                                : MaterialStatePropertyAll<Color?>(
+                                    theme.background_primary),
                           ),
                           child: Text(
                             "Past Questions",
                             style: TextStyle(
                                 color: !isSummary
-                                    ? Colors.white
-                                    : Color.fromARGB(255, 114, 116, 114),
+                                    ? theme.text_quatenary
+                                    : theme.text_tetiary,
                                 fontSize: 10,
                                 wordSpacing: 2,
                                 letterSpacing: 3),
@@ -216,25 +213,24 @@ class _MainContainerState extends State<MainContainer> {
                                     });
                                   },
                                   style: ButtonStyle(
-
                                     backgroundColor: isMultipleChoice
-                                        ? const MaterialStatePropertyAll<Color>(
-                                            Color.fromARGB(255, 114, 116, 114))
-                                        : const MaterialStatePropertyAll<Color>(
-                                            Color.fromARGB(255, 255, 255, 255)),
+                                        ? MaterialStatePropertyAll<Color?>(
+                                            theme.btn_primary)
+                                        : MaterialStatePropertyAll<Color?>(
+                                            theme.background_primary),
                                   ),
                                   child: Text(
                                     "Multiple Choice",
                                     style: TextStyle(
                                         color: isMultipleChoice
-                                            ? Colors.white
-                                            : Color.fromARGB(255, 114, 116, 114),
+                                            ? theme.text_quatenary
+                                            : theme.text_tetiary,
                                         fontSize: 10,
                                         wordSpacing: 1,
                                         letterSpacing: 1),
                                   ),
                                 ),
-                                  
+
                                 ElevatedButton(
                                   onPressed: () {
                                     setState(() {
@@ -246,23 +242,23 @@ class _MainContainerState extends State<MainContainer> {
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: isEssay
-                                        ? const MaterialStatePropertyAll<Color>(
-                                            Color.fromARGB(255, 114, 116, 114))
-                                        : const MaterialStatePropertyAll<Color>(
-                                            Color.fromARGB(255, 255, 255, 255)),
+                                        ? MaterialStatePropertyAll<Color?>(
+                                            theme.btn_primary)
+                                        : MaterialStatePropertyAll<Color?>(
+                                            theme.background_primary),
                                   ),
                                   child: Text(
                                     "Essay && Structural",
                                     style: TextStyle(
                                         color: isEssay
-                                            ? Colors.white
-                                            : Color.fromARGB(255, 114, 116, 114),
+                                            ? theme.text_quatenary
+                                            : theme.text_tetiary,
                                         fontSize: 10,
                                         wordSpacing: 1,
                                         letterSpacing: 1),
                                   ),
                                 ),
-                                  
+
                                 // Passed Questions
                                 ElevatedButton(
                                   onPressed: () {
@@ -274,17 +270,17 @@ class _MainContainerState extends State<MainContainer> {
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: isPractical
-                                        ? const MaterialStatePropertyAll<Color>(
-                                            Color.fromARGB(255, 114, 116, 114))
-                                        : const MaterialStatePropertyAll<Color>(
-                                            Color.fromARGB(255, 255, 255, 255)),
+                                        ? MaterialStatePropertyAll<Color?>(
+                                            theme.btn_primary)
+                                        : MaterialStatePropertyAll<Color?>(
+                                            theme.background_primary),
                                   ),
                                   child: Text(
                                     "Practicals",
                                     style: TextStyle(
                                         color: isPractical
-                                            ? Colors.white
-                                            : Color.fromARGB(255, 114, 116, 114),
+                                            ? theme.text_quatenary
+                                            : theme.text_tetiary,
                                         fontSize: 10,
                                         wordSpacing: 1,
                                         letterSpacing: 1),
@@ -295,7 +291,6 @@ class _MainContainerState extends State<MainContainer> {
                           ),
                         )
                       : const SizedBox(),
-                      
                 ]),
               ),
               isSummary
@@ -310,14 +305,15 @@ class _MainContainerState extends State<MainContainer> {
                           height: 650,
                           color: Colors.blue,
                           // child: const MultipleChoice(),
-                         
                         )
                       : isEssay
                           ? Container(
                               width: double.infinity,
                               height: 650,
                               // color: Colors.green,
-                               child: const EssayQuestionList(),
+                              child:  EssayQuestionList(
+                                provider : widget.provider
+                              ),
                             )
                           : isPractical
                               ? Container(
@@ -334,38 +330,6 @@ class _MainContainerState extends State<MainContainer> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // class SearchBox extends StatefulWidget {
 //   const SearchBox({
@@ -596,7 +560,6 @@ class _MainContainerState extends State<MainContainer> {
 //               hintText: "Choose Subject",
 //               hintStyle: TextStyle(color: Colors.black)),
 //         ),
-
 
 //         onChanged: (value) {
 //           widget.provider.setChoosenTopicName(value as String);

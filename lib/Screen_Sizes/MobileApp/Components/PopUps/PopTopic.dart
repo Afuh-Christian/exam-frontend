@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../Dummy_data.dart';
 import '../../../../Provider/Provider.dart';
+import '../../../../Provider/Theme/theme.dart';
 
 class PopTopicMenu extends StatefulWidget {
   PopTopicMenu(
@@ -32,17 +33,18 @@ class PopTopicMenu extends StatefulWidget {
 
 class _PopTopicMenuState extends State<PopTopicMenu> {
 
-
+ 
 
 
   @override
   Widget build(BuildContext context) {
+    colorTheme theme = widget.provider.theme();
     return ElevatedButton(
       onPressed: () => showPopUp(context),
-      style: const ButtonStyle(
+      style:  ButtonStyle(
           visualDensity: VisualDensity(vertical: 2.0),
         padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 10)),
-          backgroundColor: MaterialStatePropertyAll(Colors.white)),
+          backgroundColor: MaterialStatePropertyAll(theme.background_primary)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -52,8 +54,8 @@ class _PopTopicMenuState extends State<PopTopicMenu> {
             child: Text(
               widget.provider.choosenTopic,
               // widget.ChoosenValue ,
-              style: const TextStyle(
-                color: Color.fromARGB(255, 74, 74, 74),  letterSpacing: 2,
+              style:  TextStyle(
+                color: theme.text_secondary,  letterSpacing: 2,
                 fontSize: 15,
               ),
               maxLines: 1,
@@ -61,9 +63,9 @@ class _PopTopicMenuState extends State<PopTopicMenu> {
             ),
           ),
           const SizedBox(width: 16),
-          const Icon(
+           Icon(
             Icons.arrow_drop_down,
-            color: Colors.black,
+            color: theme.icon_primary,
           )
         ],
       ),
@@ -75,10 +77,14 @@ class _PopTopicMenuState extends State<PopTopicMenu> {
   // }
 
   Future<void> showPopUp(BuildContext context) {
+    colorTheme theme = widget.provider.theme();
+        
     return showDialog(
         context: context,
         builder: (context) => StatefulBuilder(builder: (context, setState) {
               return Dialog(
+                backgroundColor: theme.background_primary,
+
                 child: SizedBox(
                   height: double.infinity,
                   child: Column(children: [
@@ -93,16 +99,16 @@ class _PopTopicMenuState extends State<PopTopicMenu> {
                               child: Text(
                                 widget.provider.choosenTopic,
                                 // widget.ChoosenValue + " " + searchValue,
-                                style: const TextStyle(fontSize: 17),
+                                style:  TextStyle(fontSize: 17, color: theme.text_primary),
                               )),
                         ),
                         GestureDetector(
                           onTap: () => Navigator.of(context).pop(),
-                          child: const Padding(
+                          child:  Padding(
                             padding: EdgeInsets.only(top: 8.0, right: 8.0),
                             child: Icon(
                               Icons.close,
-                              color: Color.fromARGB(255, 0, 0, 0),
+                                color: theme.icon_primary,
                               size: 25,
                             ),
                           ),
@@ -117,34 +123,32 @@ class _PopTopicMenuState extends State<PopTopicMenu> {
                         left: 8,
                         right: 8,
                       ),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: TextField(
-                          // controller: TextEditingController(text: searchValue),
-                          onChanged: (value) {
-                            setState(() {
-                              widget.provider.searchTopicList(value);
-                              // widget.searchFunction(value);
-                            });
-                          },
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0)),
-                          decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color.fromARGB(255, 227, 227, 227),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide.none),
-                              hintText: "Search Exam",
-                              hintStyle: const TextStyle(
-                                  color: Color.fromARGB(255, 155, 155, 155)),
-                              suffixIcon: GestureDetector(
-                                  onTap: () {},
-                                  child: const Icon(Icons.search)),
-                              suffixIconColor:
-                                  const Color.fromARGB(255, 55, 55, 55)),
-                        ),
+                      child: TextField(
+                        // controller: TextEditingController(text: searchValue),
+                        onChanged: (value) {
+                          setState(() {
+                            widget.provider.searchTopicList(value);
+                            // widget.searchFunction(value);
+                          });
+                        },
+                        style:  TextStyle(
+                            color: theme.text_primary),
+                        decoration: InputDecoration(
+                            isDense: true,
+                            filled: true,
+                            fillColor: theme.search_bacground_primary,
+                            contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide.none),
+                            hintText: "Search Exam",
+                            hintStyle: const TextStyle(
+                                color: Color.fromARGB(255, 155, 155, 155)),
+                            suffixIcon: GestureDetector(
+                                onTap: () {},
+                                child: const Icon(Icons.search)),
+                            suffixIconColor:
+                                const Color.fromARGB(255, 55, 55, 55)),
                       ),
                     ),
                     const SizedBox(
@@ -166,7 +170,7 @@ class _PopTopicMenuState extends State<PopTopicMenu> {
                                   });
                                   Navigator.of(context).pop();
                                 },
-                                title: Text(widget.provider.getTopicList()[index].name),
+                                title: Text(widget.provider.getTopicList()[index].name , style: TextStyle(color: theme.text_primary),),
                               );
                             })),
                   ]),
