@@ -160,7 +160,7 @@ var nigtTheme = colorTheme(
   // btn_primary: Color.fromARGB(255, 58, 52, 97),
   btn_primary: Color.fromARGB(255, 53, 143, 217),
 
-  boxShadow_primary: Color.fromARGB(255, 72, 72, 72),
+  boxShadow_primary: Color.fromARGB(255, 27, 24, 45),
 
   // Box shadhow
   //  boxShadow_primary: ,
