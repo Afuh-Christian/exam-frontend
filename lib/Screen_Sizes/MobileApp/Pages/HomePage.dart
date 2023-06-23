@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:exam_front_end/Provider/Theme/theme.dart';
+import 'package:exam_front_end/Screen_Sizes/MobileApp/Components/FullScreenDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
