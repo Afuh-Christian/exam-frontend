@@ -272,13 +272,7 @@ class _ExamFullScreenSearchState extends State<ExamFullScreenSearch> {
             ),
           
           
-          
-          
-          
-          
-          
-          
-          
+        
             Expanded(
                 child: ListView.builder(
                     itemCount: widget.provider.getExamList().length,
